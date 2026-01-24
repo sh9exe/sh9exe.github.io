@@ -1,162 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@shaikhaa: ~</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon-pink: #ff007f;
-            --dark-pink: #1a000a;
-            --deep-black: #020202;
-        }
-
-        /* Fixed body to allow natural scrolling on mobile */
         body {
-            background-color: var(--deep-black);
-            color: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
-            margin: 0;
-            padding: 20px 10px;
+            background: #050505;
+            color: #00ffcc;
+            font-family: 'Courier New', monospace;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-y: auto; /* Force scroll ability */
-            animation: bg-pulse 8s infinite alternate;
-        }
-
-        @keyframes bg-pulse {
-            from { background-color: #020202; }
-            to { background-color: #0d0005; }
-        }
-
-        .terminal-window {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            background: rgba(10, 10, 12, 0.95);
-            border: 2px solid var(--neon-pink);
-            border-radius: 8px;
-            box-shadow: 0 0 20px var(--dark-pink);
-            margin: auto 0; /* Centers desktop, allows mobile flow */
+            height: 100vh;
+            margin: 0;
             overflow: hidden;
         }
 
-        .title-bar {
-            background: var(--neon-pink);
-            color: black;
-            padding: 8px 15px;
-            font-weight: bold;
-            font-size: 0.8rem;
-            white-space: nowrap;
+        /* Floating Background Particles */
+        .bg-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1a2a2d 0%, #050505 80%);
+            z-index: -1;
         }
 
-        .content { 
-            padding: 30px 20px; 
-            box-sizing: border-box;
-        }
-
-        /* Mobile specific font scaling */
-        @media (max-width: 600px) {
-            .glowing-name { font-size: 2.2rem !important; letter-spacing: 2px; }
-            .content { padding: 20px 15px; }
-            .bio-text { font-size: 0.85rem; }
-            .label { font-size: 0.7rem; padding: 4px 8px; }
-        }
-
-        .glowing-name {
-            font-size: 3.5rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin: 20px 0;
+        /* The Main Floating Container */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
             text-align: center;
-            animation: pulse-glow 2s infinite alternate;
-            word-wrap: break-word;
+            max-width: 600px;
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes pulse-glow {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-pink); transform: scale(1); }
-            to { text-shadow: 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink); transform: scale(1.02); }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        .sudo { color: var(--neon-pink); font-weight: bold; }
-        .path { color: #555; }
-
-        .label-container {
-            text-align: center;
-            margin-top: 20px;
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 10px;
+            text-shadow: 0 0 20px #00ffcc;
+            margin-bottom: 10px;
         }
 
-        .label {
-            display: inline-block;
-            border: 1px solid var(--neon-pink);
-            padding: 6px 12px;
-            margin: 4px;
-            font-size: 0.8rem;
-            color: var(--neon-pink);
-            text-transform: uppercase;
+        .skill-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
         }
 
-        .bio-text {
-            color: #bbb;
-            border-left: 3px solid var(--neon-pink);
-            padding-left: 15px;
-            margin: 25px 0;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: left;
+        .skill-item {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid #00ffcc;
+            padding: 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: crosshair;
         }
 
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 18px;
-            background: var(--neon-pink);
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
+        .skill-item:hover {
+            background: #00ffcc;
+            color: #000;
+            box-shadow: 0 0 20px #00ffcc;
         }
-
-        @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
-
-    <div class="terminal-window">
-        <div class="title-bar">
-            root@shaikhaa: ~ (ENCRYPTED_SESSION)
+    <div class="bg-glow"></div>
+    <div class="glass-card">
+        <p style="color: #ff0055;">[ SESSION_ENCRYPTED ]</p>
+        <h1>SHAIKHA</h1>
+        <p>Qatari Ethical Hacker // Offensive Researcher</p>
+        <hr style="border: 0.5px solid rgba(255,255,255,0.2);">
+        
+        <div class="skill-grid">
+            <div class="skill-item">TRAFFIC ANALYSIS</div>
+            <div class="skill-item">DDoS TOOLS</div>
+            <div class="skill-item">PWD CRACKING</div>
+            <div class="skill-item">RED TEAMING</div>
         </div>
-        <div class="content">
-            <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
-            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
-            
-            <h1 class="glowing-name">SHAIKHA</h1>
-            
-            <p style="color: var(--neon-pink); font-weight: bold; text-align: center; font-size: 0.8rem; margin-bottom: 20px;">
-                [ QATARI CYBER SECURITY ]
-            </p>
-
-            <div class="bio-text">
-                I am a Qatari student specializing in <strong>Ethical Hacking</strong>. 
-                I focus on identifying system vulnerabilities and mastering digital defense. 
-                My work revolves around <strong>Cryptanalysis</strong> and <strong>Network Stress Testing</strong>, 
-                utilizing the power of the shell to secure modern digital environments.
-            </div>
-
-            <div class="label-container">
-                <span class="label">Network Stress Testing</span>
-                <span class="label">Cryptanalysis</span>
-                <span class="label">Ethical Hacking</span>
-                <span class="label">Sudo Access</span>
-            </div>
-
-            <p style="margin-top: 40px; font-size: 0.9rem;">
-                <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> <span class="cursor"></span>
-            </p>
-        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.6;">
+            root@shaikhaa:~# <span id="typewriter">analyzing_network_packets...</span>
+        </p>
     </div>
-
 </body>
 </html>
