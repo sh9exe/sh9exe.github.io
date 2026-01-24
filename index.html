@@ -47,34 +47,9 @@
             padding: 8px 15px;
             font-weight: bold;
             font-size: 0.8rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        /* The Language Toggle - Now inside the title bar */
-        .lang-toggle {
-            background: black;
-            border: 1px solid black;
-            color: var(--neon-pink);
-            padding: 2px 10px;
-            cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 4px;
-        }
-
-        .lang-toggle:hover {
-            background: #222;
-            color: white;
-        }
-
-        .content { padding: 40px; transition: all 0.3s ease; }
-        
-        .rtl { direction: rtl; text-align: right; }
-        .rtl .bio-text { border-left: none; border-right: 3px solid var(--neon-pink); padding-left: 0; padding-right: 15px; }
+        .content { padding: 40px; }
 
         .glowing-name {
             font-size: clamp(2rem, 8vw, 3.5rem);
@@ -87,8 +62,14 @@
         }
 
         @keyframes pulse-glow {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); transform: scale(1); }
-            to { text-shadow: 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink), 0 0 100px var(--neon-pink); transform: scale(1.05); }
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
+                transform: scale(1);
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink), 0 0 100px var(--neon-pink);
+                transform: scale(1.05);
+            }
         }
 
         .sudo { color: var(--neon-pink); font-weight: bold; }
@@ -102,6 +83,13 @@
             font-size: 0.85rem;
             color: var(--neon-pink);
             text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .label:hover {
+            background: var(--neon-pink);
+            color: black;
+            box-shadow: 0 0 10px var(--neon-pink);
         }
 
         .bio-text {
@@ -111,6 +99,10 @@
             margin: 30px 0;
             font-size: 1rem;
             line-height: 1.6;
+        }
+
+        .bio-text strong {
+            color: #fff;
         }
 
         .cursor {
@@ -129,24 +121,24 @@
 
     <div class="terminal-window">
         <div class="title-bar">
-            <span id="session-title">root@shaikhaa: ~ (ENCRYPTED_SESSION)</span>
-            <button class="lang-toggle" onclick="toggleLanguage()">ARABIC</button>
+            <span>root@shaikhaa: ~ (ENCRYPTED_SESSION)</span>
         </div>
-        <div class="content" id="main-content">
+        <div class="content">
             <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
             <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
             
             <h1 class="glowing-name">SHAIKHA</h1>
             
-            <p id="sub-header" style="color: var(--neon-pink); font-weight: bold; text-align: center;">[ QATARI CYBER SECURITY ]</p>
+            <p style="color: var(--neon-pink); font-weight: bold; text-align: center;">[ QATARI CYBER SECURITY ]</p>
 
-            <div class="bio-text" id="bio">
-                I am a Qatari student specializing in Ethical Hacking. 
-                I focus on identifying complex system vulnerabilities and mastering the mechanics of digital defense. 
-                My work revolves around Cryptanalysis and Network Stress Testing, utilizing the power of the shell to secure modern digital environments.
+            <div class="bio-text">
+                I am a Qatari student specializing in <strong>Ethical Hacking</strong> and <strong>Offensive Security</strong>. 
+                I focus on deconstructing system vulnerabilities and mastering the mechanics of digital defense. 
+                My research revolves around <strong>Cryptanalysis</strong> (credential recovery) and <strong>Network Stress Testing</strong> (infrastructure resilience), 
+                utilizing the power of the shell to secure modern digital environments.
             </div>
 
-            <div style="text-align: center;" id="labels-container">
+            <div style="text-align: center;">
                 <span class="label">Network Stress Testing</span>
                 <span class="label">Cryptanalysis</span>
                 <span class="label">Ethical Hacking</span>
@@ -158,49 +150,6 @@
             </p>
         </div>
     </div>
-
-    <script>
-        let currentLang = 'en';
-
-        const translations = {
-            en: {
-                btn: "ARABIC",
-                session: "root@shaikhaa: ~ (ENCRYPTED_SESSION)",
-                sub: "[ QATARI CYBER SECURITY ]",
-                bio: "I am a Qatari student specializing in Ethical Hacking. I focus on identifying complex system vulnerabilities and mastering the mechanics of digital defense. My work revolves around Cryptanalysis and Network Stress Testing, utilizing the power of the shell to secure modern digital environments.",
-                labels: ["Network Stress Testing", "Cryptanalysis", "Ethical Hacking", "Sudo Access"]
-            },
-            ar: {
-                btn: "ENGLISH",
-                session: "جذر@شيخة: ~ (جلسة مشفرة)",
-                sub: "[ الأمن السيبراني القطري ]",
-                bio: "أنا طالبة قطرية متخصصة في الهجوم الأخلاقي. أركز على تحديد نقاط الضعف المعقدة في الأنظمة وإتقان آليات الدفاع الرقمي. يتمحور عملي حول تحليل التشفير واختبار ضغط الشبكات، مع الاستفادة من قوة واجهة الأوامر لتأمين البيئات الرقمية الحديثة.",
-                labels: ["اختبار ضغط الشبكة", "تحليل التشفير", "الهجوم الأخلاقي", "صلاحيات الجذر"]
-            }
-        };
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            const data = translations[currentLang];
-            
-            document.querySelector('.lang-toggle').innerText = data.btn;
-            document.getElementById('session-title').innerText = data.session;
-            document.getElementById('sub-header').innerText = data.sub;
-            document.getElementById('bio').innerText = data.bio;
-            
-            const labelSpans = document.querySelectorAll('.label');
-            data.labels.forEach((text, index) => {
-                labelSpans[index].innerText = text;
-            });
-
-            const content = document.getElementById('main-content');
-            if(currentLang === 'ar') {
-                content.classList.add('rtl');
-            } else {
-                content.classList.remove('rtl');
-            }
-        }
-    </script>
 
 </body>
 </html>
