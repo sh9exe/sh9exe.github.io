@@ -89,3 +89,55 @@
             color: #bbb;
             border-left: 3px solid var(--neon-pink);
             padding-left: 15px;
+            margin: 30px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background: var(--neon-pink);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-window">
+        <div class="title-bar">
+            <span>root@shaikhaa: ~ (ENCRYPTED_SESSION)</span>
+        </div>
+        <div class="content">
+            <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
+            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
+            
+            <h1 class="glowing-name">SHAIKHA</h1>
+            
+            <p style="color: var(--neon-pink); font-weight: bold; text-align: center;">[ QATARI CYBER SECURITY ]</p>
+
+            <div class="bio-text">
+                I am a Qatari student specializing in <strong>Ethical Hacking and Cybersecurity</strong>. 
+                I focus on identifying system vulnerabilities and understanding the mechanics of digital defense. 
+                My focus remains strictly on <strong>Kali Linux</strong> and <strong>Linux Mint</strong> environments—utilizing the power of the shell for security research.
+            </div>
+
+            <div style="text-align: center;">
+                <span class="label">Kali Linux</span>
+                <span class="label">Linux Mint</span>
+                <span class="label">Ethical Hacking</span>
+                <span class="label">Sudo Access</span>
+            </div>
+
+            <p style="margin-top: 50px;">
+                <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> <span class="cursor"></span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
