@@ -12,6 +12,7 @@
             --deep-black: #020202;
         }
 
+        /* Fixed: Changed overflow to allow scrolling on mobile */
         body {
             background-color: var(--deep-black);
             color: #ffffff;
@@ -19,9 +20,11 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Better for scrolling */
             min-height: 100vh;
-            overflow: hidden;
+            overflow-y: auto; 
+            padding: 20px;
+            box-sizing: border-box;
             animation: bg-pulse 8s infinite alternate;
         }
 
@@ -32,13 +35,15 @@
 
         .terminal-window {
             position: relative;
-            width: 90%;
+            width: 100%;
             max-width: 800px;
             background: rgba(10, 10, 12, 0.95);
             border: 2px solid var(--neon-pink);
             border-radius: 8px;
             z-index: 3;
             box-shadow: 0 0 20px var(--dark-pink);
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         .title-bar {
@@ -49,7 +54,17 @@
             font-size: 0.8rem;
         }
 
-        .content { padding: 40px; }
+        .content { 
+            padding: 40px; 
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 600px) {
+            .content { padding: 20px; }
+            .glowing-name { font-size: 2rem !important; }
+            .bio-text { font-size: 0.9rem; }
+            .label { font-size: 0.7rem; padding: 4px 10px; }
+        }
 
         .glowing-name {
             font-size: clamp(2rem, 8vw, 3.5rem);
@@ -101,9 +116,7 @@
             line-height: 1.6;
         }
 
-        .bio-text strong {
-            color: #fff;
-        }
+        .bio-text strong { color: #fff; }
 
         .cursor {
             display: inline-block;
@@ -134,7 +147,7 @@
             <div class="bio-text">
                 I am a Qatari student specializing in <strong>Ethical Hacking</strong> and <strong>Offensive Security</strong>. 
                 I focus on deconstructing system vulnerabilities and mastering the mechanics of digital defense. 
-                My research revolves around <strong>Cryptanalysis</strong> (credential recovery) and <strong>Network Stress Testing</strong> (infrastructure resilience), 
+                My research revolves around <strong>Cryptanalysis</strong> and <strong>Network Stress Testing</strong>, 
                 utilizing the power of the shell to secure modern digital environments.
             </div>
 
