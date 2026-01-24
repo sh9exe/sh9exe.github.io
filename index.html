@@ -3,108 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaikha | Cybersecurity & Ethical Hacking</title>
+    <title>sh9exe | Security Researcher</title>
     <style>
         :root {
-            --neon-green: #00ff41;
-            --bg-dark: #0a0a0a;
-            --card-bg: #161616;
-            --text-gray: #a0a0a0;
+            --kali-blue: #0087ff; /* Kali Linux Blue */
+            --terminal-green: #00ff41;
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace; /* Monospace for that hacker feel */
-            background-color: var(--bg-dark);
-            color: #fff;
-            line-height: 1.6;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background-color: var(--bg);
+            color: #e0e0e0;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
-        .container {
+        .terminal-window {
             max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        header {
-            border-bottom: 1px solid var(--neon-green);
-            padding-bottom: 20px;
-            margin-bottom: 40px;
-        }
-
-        .glitch {
-            color: var(--neon-green);
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        section {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 4px;
-            margin-bottom: 25px;
-            border-left: 4px solid var(--neon-green);
-        }
-
-        h2 { color: var(--neon-green); margin-top: 0; text-transform: uppercase; font-size: 1.2rem; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .skill-tag {
-            background: #222;
-            padding: 5px 12px;
-            border-radius: 3px;
+            margin: 40px auto;
+            background: var(--surface);
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
             border: 1px solid #333;
-            font-size: 0.9rem;
-            color: var(--neon-green);
         }
 
-        footer { text-align: center; color: var(--text-gray); margin-top: 50px; font-size: 0.8rem; }
-        
-        a { color: var(--neon-green); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-    </style>
-</head>
-<body>
+        .top-bar {
+            background: #333;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+        }
 
-    <div class="container">
-        <header>
-            <div class="glitch">root@shaikhaa:~#</div>
-            <p>Ethical Hacker | Cybersecurity Student | Qatar</p>
-        </header>
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
-        <section id="about">
-            <h2>> Biography</h2>
-            <p>I am a Qatari student specializing in <strong>Ethical Hacking and Cybersecurity</strong>. I focus on identifying system vulnerabilities and understanding the mechanics of digital defense.</p>
-        </section>
+        .content { padding: 30px; }
 
-        <section id="toolkit">
-            <h2>> Technical Toolkit</h2>
-            <div class="grid">
-                <div class="skill-tag">Penetration Testing</div>
-                <div class="skill-tag">Network Security</div>
-                <div class="skill-tag">Linux / Bash</div>
-                <div class="skill-tag">Python for Security</div>
-                <div class="skill-tag">Vulnerability Assessment</div>
-                <div class="skill-tag">Web Security (OWASP)</div>
-            </div>
-        </section>
+        h1 { color: var(--kali-blue); font-size: 1.8rem; margin-top: 0; }
+        h2 { color: var(--terminal-green); font-size: 1.2rem; border-bottom: 1px dashed #444; padding-bottom: 5px; }
 
-        <section id="mission">
-            <h2>> Focus Areas</h2>
-            <p>I am currently exploring <strong>offensive security tactics</strong> and learning how to harden infrastructure against modern threats. My goal is to contribute to Qatar's growing digital security landscape.</p>
-        </section>
-
-        <footer>
-            <p>TERMINAL CONNECTION SECURE | &copy; 2026 SHAIKHAA.XYZ</p>
-        </footer>
-    </div>
-
-</body>
-</html>
+        .os-tag {
+            display: inline-block;
+            background: #252525;
+            padding
