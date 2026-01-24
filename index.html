@@ -3,105 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sh9exe | root@shaikhaa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>root@shaikhaa: ~</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --hot-pink: #ff2d55;
-            --dark-pink: #2d0a15;
-            --bg-black: #050505;
-            --text-pink: #ff85a1;
+            --neon-pink: #ff007f;
+            --dark-pink: #3d001e;
+            --deep-black: #0a0a0c;
         }
 
         body {
-            font-family: 'Space Mono', monospace;
-            background-color: var(--bg-black);
-            color: var(--text-pink);
+            background-color: var(--deep-black);
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .terminal-container {
+        .terminal-window {
             width: 100%;
             max-width: 800px;
-            margin-top: 50px;
-            border: 2px solid var(--hot-pink);
-            background-color: var(--dark-pink);
-            box-shadow: 0 0 20px rgba(255, 45, 85, 0.3);
-            border-radius: 10px;
+            background: var(--deep-black);
+            border: 2px solid var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.2);
+            border-radius: 8px;
             overflow: hidden;
         }
 
-        .terminal-header {
-            background-color: var(--hot-pink);
+        .title-bar {
+            background: var(--neon-pink);
+            color: black;
             padding: 8px 15px;
-            display: flex;
-            justify-content: space-between;
-            color: white;
             font-weight: bold;
             font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .body-content {
+        .content {
             padding: 30px;
         }
 
-        .prompt { color: #fff; }
-        .user { color: var(--hot-pink); font-weight: bold; }
-        .path { color: #fff; }
+        .sudo { color: var(--neon-pink); font-weight: bold; }
+        .path { color: #888; }
+        
+        h1 { 
+            color: #fff; 
+            font-size: 2.2rem; 
+            margin: 10px 0; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-        h1 { font-size: 2rem; color: #fff; margin-bottom: 5px; text-shadow: 2px 2px var(--hot-pink); }
-        h2 { font-size: 1.1rem; color: var(--hot-pink); margin-top: 30px; text-transform: uppercase; }
-
-        .os-box {
+        .label {
             display: inline-block;
-            border: 1px solid var(--hot-pink);
-            padding: 5px 15px;
-            margin: 5px;
+            background: var(--dark-pink);
+            color: var(--neon-pink);
+            padding: 4px 12px;
             border-radius: 4px;
+            margin: 5px;
             font-size: 0.9rem;
-            background: rgba(255, 45, 85, 0.1);
+            border: 1px solid var(--neon-pink);
         }
 
         .cursor {
             display: inline-block;
             width: 10px;
-            height: 20px;
-            background: var(--hot-pink);
-            animation: blink 0.8s infinite;
+            height: 1.2rem;
+            background: var(--neon-pink);
+            animation: blink 1s infinite;
             vertical-align: middle;
         }
 
-        @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        a { color: #fff; text-decoration: none; border-bottom: 1px dashed var(--hot-pink); }
-        a:hover { color: var(--hot-pink); }
+        a { color: var(--neon-pink); text-decoration: none; border-bottom: 1px solid transparent; }
+        a:hover { border-bottom: 1px solid var(--neon-pink); }
+
+        p { line-height: 1.6; color: #ccc; }
     </style>
 </head>
 <body>
 
-    <div class="terminal-container">
-        <div class="terminal-header">
+    <div class="terminal-window">
+        <div class="title-bar">
             <span>root@shaikhaa: /home/sh9exe</span>
-            <span>[×]</span>
+            <span>shaikhaa.xyz</span>
         </div>
-
-        <div class="body-content">
-            <p><span class="user">sh9exe@shaikhaa</span>:<span class="path">~</span>$ sudo su</p>
-            <p><span class="user">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
+        <div class="content">
+            <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
+            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
             
             <h1>SHAIKHA</h1>
-            <p>Qatari Student | Ethical Hacking & Cyber Security</p>
+            <p>Qatari Ethical Hacking Student & Security Researcher.</p>
 
-            <h2>> System Profile</h2>
-            <div class="os-box">Kali Linux</div>
-            <div class="os-box">Linux Mint</div>
-            <div class="os-box">Bash Mastery</div>
+            <div style="margin: 25px 0;">
+                <span class="label">KALI LINUX</span>
+                <span class="label">LINUX MINT</span>
+                <span class="label">OFFENSIVE SECURITY</span>
+                <span class="label">PENETRATION TESTING</span>
+            </div>
 
-            <h2>> Expertise</h2>
-            <p>Focused on offensive security and penetration testing. I prioritize working within <strong>Kali Linux</strong> for auditing and <strong>Linux Mint</strong> for secure development environments.</p>
+            <p>> Focused on system hardening and vulnerability research within Linux environments. Strictly utilizing the command line for efficiency and precision.</p>
 
-            <p style="margin-top: 40px;">
-                <span class="user">root@shaikhaa</span>:<span class="path">#</span> ls -contact<br>
+            <p style="margin-top: 50px;">
+                <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> ls -contact<br>
+                > <a href="mailto:shaikha@shaikhaa.xyz">email_sys</a><br>
+                > <a href="https://github.com/sh9exe">github_repo</a><br>
+                <span class="cursor"></span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
