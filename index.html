@@ -8,8 +8,8 @@
     <style>
         :root {
             --neon-pink: #ff007f;
-            --dark-pink: #3d001e;
-            --deep-black: #0a0a0c;
+            --dark-pink: #2d0015;
+            --deep-black: #050505;
         }
 
         body {
@@ -17,21 +17,39 @@
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
             margin: 0;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Scanline Animation */
+        body::before {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
         }
 
         .terminal-window {
-            width: 100%;
+            position: relative;
+            width: 90%;
             max-width: 800px;
-            background: var(--deep-black);
+            background: rgba(10, 10, 12, 0.9);
             border: 2px solid var(--neon-pink);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
             border-radius: 8px;
-            overflow: hidden;
+            z-index: 3;
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { box-shadow: 0 0 10px rgba(255, 0, 127, 0.2); }
+            to { box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); }
         }
 
         .title-bar {
@@ -39,52 +57,53 @@
             color: black;
             padding: 8px 15px;
             font-weight: bold;
-            font-size: 0.8rem;
             display: flex;
             justify-content: space-between;
         }
 
-        .content {
-            padding: 30px;
+        .content { padding: 30px; }
+
+        /* Typing Animation */
+        .typing {
+            width: 14ch;
+            animation: typing 2s steps(14), blink .5s step-end infinite alternate;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid var(--neon-pink);
+            font-size: 2.2rem;
+            color: #fff;
+            text-transform: uppercase;
         }
 
-        .sudo { color: var(--neon-pink); font-weight: bold; }
-        .path { color: #888; }
-        
-        h1 { 
-            color: #fff; 
-            font-size: 2.2rem; 
-            margin: 10px 0; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        @keyframes typing {
+            from { width: 0 }
         }
+        
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+
+        .sudo { color: var(--neon-pink); }
+        .path { color: #888; }
 
         .label {
             display: inline-block;
-            background: var(--dark-pink);
-            color: var(--neon-pink);
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin: 5px;
-            font-size: 0.9rem;
             border: 1px solid var(--neon-pink);
+            padding: 4px 12px;
+            margin: 5px;
+            font-size: 0.8rem;
+            transition: 0.3s;
         }
 
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 1.2rem;
+        .label:hover {
             background: var(--neon-pink);
-            animation: blink 1s infinite;
-            vertical-align: middle;
+            color: black;
+            cursor: crosshair;
         }
 
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        a { color: var(--neon-pink); text-decoration: none; }
+        a:hover { text-shadow: 0 0 8px var(--neon-pink); }
 
-        a { color: var(--neon-pink); text-decoration: none; border-bottom: 1px solid transparent; }
-        a:hover { border-bottom: 1px solid var(--neon-pink); }
-
-        p { line-height: 1.6; color: #ccc; }
     </style>
 </head>
 <body>
@@ -92,29 +111,28 @@
     <div class="terminal-window">
         <div class="title-bar">
             <span>root@shaikhaa: /home/sh9exe</span>
-            <span>shaikhaa.xyz</span>
+            <span>CONNECTED</span>
         </div>
         <div class="content">
             <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
-            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
+            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> access portfolio</p>
             
-            <h1>SHAIKHA</h1>
-            <p>Qatari Ethical Hacking Student & Security Researcher.</p>
+            <h1 class="typing">SHAIKHA</h1>
+            <p style="color: #888;">> Qatari Security Researcher & Linux Specialist</p>
 
             <div style="margin: 25px 0;">
                 <span class="label">KALI LINUX</span>
                 <span class="label">LINUX MINT</span>
+                <span class="label">SUDO MASTERY</span>
                 <span class="label">OFFENSIVE SECURITY</span>
-                <span class="label">PENETRATION TESTING</span>
             </div>
 
-            <p>> Focused on system hardening and vulnerability research within Linux environments. Strictly utilizing the command line for efficiency and precision.</p>
+            <p>> Bypassing standard interfaces... Loading core expertise... I specialize in Bash environments and system hardening. No Python, just raw Linux power.</p>
 
             <p style="margin-top: 50px;">
                 <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> ls -contact<br>
                 > <a href="mailto:shaikha@shaikhaa.xyz">email_sys</a><br>
-                > <a href="https://github.com/sh9exe">github_repo</a><br>
-                <span class="cursor"></span>
+                > <a href="https://github.com/sh9exe">github_repo</a>
             </p>
         </div>
     </div>
