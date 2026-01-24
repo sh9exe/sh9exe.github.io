@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@shaikhaa: ~</title>
+    <title>root@shaikhaa: ~ (ENCRYPTED_SESSION)</title>
     <style>
         :root {
             --neon-pink: #ff2d75;
             --dark-pink: #4a0e23;
             --bg-black: #080205;
-            --glass: rgba(20, 5, 10, 0.8);
+            --glass: rgba(20, 5, 10, 0.85);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -21,141 +21,142 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
             /* Neural Grid Background */
             background-image: 
                 linear-gradient(rgba(255, 45, 117, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 45, 117, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background-size: 30px 30px;
         }
 
-        /* Floating HUD Container */
+        /* Responsive Floating HUD Container */
         .hud-container {
-            width: 900px;
+            width: 100%;
+            max-width: 900px;
             background: var(--glass);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--neon-pink);
             border-radius: 20px;
-            padding: 40px;
+            padding: 25px;
             box-shadow: 0 0 60px rgba(255, 45, 117, 0.15);
             animation: float 6s ease-in-out infinite;
-            position: relative;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotateX(0deg); }
-            50% { transform: translateY(-20px) rotateX(1deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
         /* Header Section */
         .header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Default for mobile */
             border-bottom: 1px solid var(--dark-pink);
-            padding-bottom: 25px;
-            margin-bottom: 30px;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .hud-container { padding: 40px; }
         }
 
         .root-prompt {
-            font-size: 2.8rem;
+            font-size: 1.8rem; /* Smaller for mobile */
             font-weight: 900;
             color: var(--neon-pink);
-            text-shadow: 0 0 20px var(--neon-pink);
-            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 15px var(--neon-pink);
+            word-break: break-all;
         }
 
-        .cursor {
-            animation: blink 1s infinite;
-        }
+        @media (min-width: 768px) { .root-prompt { font-size: 2.8rem; } }
 
+        .cursor { animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Live Status Bar */
+        /* Status Bar */
         .status-bar {
-            text-align: right;
             font-family: monospace;
             color: var(--neon-pink);
-            font-size: 0.85rem;
-            line-height: 1.4;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            text-align: left; /* Mobile default */
         }
 
-        /* Main Content Grid */
+        @media (min-width: 768px) { .status-bar { text-align: right; font-size: 0.85rem; } }
+
+        /* Content Grid */
         .grid-layout {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 25px;
+            grid-template-columns: 1fr; /* Single column on mobile */
+            gap: 20px;
         }
+
+        @media (min-width: 768px) { .grid-layout { grid-template-columns: 1fr 1.5fr; } }
 
         .module {
             background: rgba(255, 45, 117, 0.03);
             border: 1px solid var(--dark-pink);
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
         }
 
         .label {
             color: var(--neon-pink);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-        /* Animated Traffic Bars */
-        .visualizer {
-            height: 60px;
-            display: flex;
-            align-items: flex-end;
-            gap: 5px;
-        }
-
-        .bar {
-            flex: 1;
-            background: var(--neon-pink);
-            animation: pulse 1.2s infinite ease-in-out;
-        }
+        /* Traffic Bars */
+        .visualizer { height: 40px; display: flex; align-items: flex-end; gap: 4px; }
+        .bar { flex: 1; background: var(--neon-pink); animation: pulse 1.2s infinite ease-in-out; }
 
         @keyframes pulse {
-            0%, 100% { height: 20%; opacity: 0.5; }
+            0%, 100% { height: 30%; opacity: 0.5; }
             50% { height: 100%; opacity: 1; }
         }
 
         /* Skill Buttons */
         .btn-group {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 30px;
+            grid-template-columns: 1fr 1fr; /* 2x2 on mobile */
+            gap: 10px;
+            margin-top: 25px;
         }
 
+        @media (min-width: 768px) { .btn-group { grid-template-columns: repeat(4, 1fr); } }
+
         .pill {
-            padding: 12px;
+            padding: 12px 5px;
             border: 1px solid var(--neon-pink);
             border-radius: 5px;
             text-align: center;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             color: var(--neon-pink);
-            text-decoration: none;
-            transition: 0.3s;
             background: transparent;
+            transition: 0.3s;
         }
 
-        .pill:hover {
+        .pill:active, .pill:hover {
             background: var(--neon-pink);
             color: black;
-            box-shadow: 0 0 20px var(--neon-pink);
-            cursor: pointer;
+            box-shadow: 0 0 15px var(--neon-pink);
         }
 
         .terminal-output {
-            margin-top: 25px;
+            margin-top: 20px;
             font-family: monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #ff80ab;
-            opacity: 0.8;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -164,26 +165,26 @@
     <div class="hud-container">
         <div class="header">
             <div>
-                <p class="label">[ AUTHENTICATED_SESSION ]</p>
+                <p class="label">[ SYSTEM_LOGGED_IN ]</p>
                 <div class="root-prompt">
-                    SHAIKHA:<span style="color:white">~#</span><span class="cursor">_</span>
+                    root@shaikhaa:<span style="color:white">~#</span><span class="cursor">_</span>
                 </div>
-                <p style="margin-top: 10px; color: #ff80ab; font-size: 0.9rem;">
-                    // ETHICAL HACKER // OFFENSIVE RESEARCHER
+                <p style="margin-top: 8px; color: #ff80ab; font-size: 0.8rem; opacity: 0.8;">
+                    // QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH
                 </p>
             </div>
             
             <div class="status-bar" id="live-status">
                 <span id="live-date">JAN_24_2026</span><br>
-                <span id="live-time">17:01:43_GMT+3</span><br>
-                LAT: 25.2854° N<br>
-                UPLINK: <span id="uplink" style="font-weight:bold;">ACTIVE</span>
+                <span id="live-time">17:14:15_GMT+3</span><br>
+                LOC: 25.2854° N (QATAR)<br>
+                UPLINK: <span id="uplink" style="font-weight:bold;">SECURE</span>
             </div>
         </div>
 
         <div class="grid-layout">
             <div class="module">
-                <span class="label">Traffic Visualizer</span>
+                <span class="label">Traffic Monitoring</span>
                 <div class="visualizer">
                     <div class="bar" style="animation-delay: 0.1s"></div>
                     <div class="bar" style="animation-delay: 0.3s"></div>
@@ -191,56 +192,47 @@
                     <div class="bar" style="animation-delay: 0.5s"></div>
                     <div class="bar" style="animation-delay: 0.4s"></div>
                 </div>
-                <p class="terminal-output" style="font-size: 0.65rem; margin-top: 10px;">
-                    PACKET_LOSS: 0.001% | BANDWIDTH: 10Gbps
-                </p>
             </div>
 
             <div class="module">
-                <span class="label">Credential Recovery</span>
-                <p class="terminal-output" style="color: white; opacity: 0.6;">
-                    HASH: $2y$10$92IXUNpkjO0rOQ5byMi.Ye...<br>
-                    STATUS: <span style="color: var(--neon-pink);">BRUTE_FORCING...</span><br>
-                    REMAINING: 00:04:12
+                <span class="label">Active Tasks</span>
+                <p class="terminal-output" style="color: white; opacity: 0.7; margin-top: 0;">
+                    [>] Brute-forcing Hash... <span style="color: var(--neon-pink);">72%</span><br>
+                    [>] Sniffing Local Packets... <span style="color: var(--neon-pink);">DONE</span><br>
+                    [>] DDoS Mitigation Test... <span style="color: var(--neon-pink);">RUNNING</span>
                 </p>
             </div>
         </div>
 
         <div class="btn-group">
-            <div class="pill">TRAFFIC ANALYSIS</div>
+            <div class="pill">TRAFFIC</div>
             <div class="pill">DDOS TOOLS</div>
-            <div class="pill">PWD CRACKING</div>
-            <div class="pill">RED TEAMING</div>
+            <div class="pill">PWD CRACK</div>
+            <div class="pill">ETHICAL HACK</div>
         </div>
 
-        <div class="terminal-output">
-            root@shaikhaa:~# initializing_ddos_mitigation_test...<br>
-            root@shaikhaa:~# scanning_network_for_vulnerabilities...
+        <div class="terminal-output" style="opacity: 0.5; font-size: 0.65rem; border-top: 1px solid var(--dark-pink); padding-top: 15px;">
+            shaikha@offensive-lab:~$ start --network-sweep<br>
+            [SUCCESS] Connection established via encrypted tunnel.
         </div>
     </div>
 
     <script>
         function updateHUD() {
             const now = new Date();
-            
-            // Format Date
             const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
             const dateStr = `${months[now.getMonth()]}_${String(now.getDate()).padStart(2, '0')}_${now.getFullYear()}`;
-            
-            // Format Time (Local to your browser but showing GMT+3)
             const timeStr = now.toLocaleTimeString('en-GB', { hour12: false }) + "_GMT+3";
 
             document.getElementById('live-date').innerText = dateStr;
             document.getElementById('live-time').innerText = timeStr;
 
-            // Uplink Flicker
             const uplink = document.getElementById('uplink');
-            if (Math.random() > 0.95) {
-                uplink.style.opacity = "0.2";
+            if (Math.random() > 0.96) {
+                uplink.style.opacity = "0.3";
                 setTimeout(() => uplink.style.opacity = "1", 100);
             }
         }
-
         setInterval(updateHUD, 1000);
         updateHUD();
     </script>
