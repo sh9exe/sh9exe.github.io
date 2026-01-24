@@ -3,51 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sh9exe | Security & Penetration Testing</title>
+    <title>sh9exe | root@shaikhaa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --kali-blue: #0087ff;
-            --term-green: #00ff41;
-            --bg-dark: #0d0d0d;
-            --header-gray: #2d2d2d;
+            --hot-pink: #ff2d55;
+            --dark-pink: #2d0a15;
+            --bg-black: #050505;
+            --text-pink: #ff85a1;
         }
 
         body {
-            font-family: 'Fira Code', 'Courier New', monospace;
-            background-color: var(--bg-dark);
-            color: #d1d1d1;
+            font-family: 'Space Mono', monospace;
+            background-color: var(--bg-black);
+            color: var(--text-pink);
             margin: 0;
             padding: 20px;
-        }
-
-        .terminal-box {
-            max-width: 850px;
-            margin: 50px auto;
-            background: #1a1a1a;
-            border-radius: 6px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            overflow: hidden;
-            border: 1px solid #333;
-        }
-
-        .window-controls {
-            background: var(--header-gray);
-            padding: 10px;
             display: flex;
-            gap: 7px;
+            justify-content: center;
         }
 
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .close { background: #ff5f56; } .min { background: #ffbd2e; } .max { background: #27c93f; }
+        .terminal-container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+            border: 2px solid var(--hot-pink);
+            background-color: var(--dark-pink);
+            box-shadow: 0 0 20px rgba(255, 45, 85, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-        .terminal-body { padding: 25px; }
+        .terminal-header {
+            background-color: var(--hot-pink);
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
 
-        .prompt { color: var(--term-green); font-weight: bold; }
-        .path { color: var(--kali-blue); }
-        .cmd { color: #fff; margin-left: 10px; }
+        .body-content {
+            padding: 30px;
+        }
 
-        h1 { font-size: 1.5rem; color: #fff; margin: 15px 0 5px 0; }
-        h2 { font-size: 1.1rem; color: var(--kali-blue); border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 30px; }
+        .prompt { color: #fff; }
+        .user { color: var(--hot-pink); font-weight: bold; }
+        .path { color: #fff; }
 
-        .skill-list {
-            display
+        h1 { font-size: 2rem; color: #fff; margin-bottom: 5px; text-shadow: 2px 2px var(--hot-pink); }
+        h2 { font-size: 1.1rem; color: var(--hot-pink); margin-top: 30px; text-transform: uppercase; }
+
+        .os-box {
+            display: inline-block;
+            border: 1px solid var(--hot-pink);
+            padding: 5px 15px;
+            margin: 5px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(255, 45, 85, 0.1);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--hot-pink);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 0% { opacity: 0; } 50% { opacity: 1; } 100% { opacity: 0; } }
+
+        a { color: #fff; text-decoration: none; border-bottom: 1px dashed var(--hot-pink); }
+        a:hover { color: var(--hot-pink); }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span>root@shaikhaa: /home/sh9exe</span>
+            <span>[×]</span>
+        </div>
+
+        <div class="body-content">
+            <p><span class="user">sh9exe@shaikhaa</span>:<span class="path">~</span>$ sudo su</p>
+            <p><span class="user">root@shaikhaa</span>:<span class="path">#</span> whoami</p>
+            
+            <h1>SHAIKHA</h1>
+            <p>Qatari Student | Ethical Hacking & Cyber Security</p>
+
+            <h2>> System Profile</h2>
+            <div class="os-box">Kali Linux</div>
+            <div class="os-box">Linux Mint</div>
+            <div class="os-box">Bash Mastery</div>
+
+            <h2>> Expertise</h2>
+            <p>Focused on offensive security and penetration testing. I prioritize working within <strong>Kali Linux</strong> for auditing and <strong>Linux Mint</strong> for secure development environments.</p>
+
+            <p style="margin-top: 40px;">
+                <span class="user">root@shaikhaa</span>:<span class="path">#</span> ls -contact<br>
