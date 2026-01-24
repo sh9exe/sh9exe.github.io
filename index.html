@@ -3,49 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sh9exe | Security Researcher</title>
+    <title>sh9exe | Security & Penetration Testing</title>
     <style>
         :root {
-            --kali-blue: #0087ff; /* Kali Linux Blue */
-            --terminal-green: #00ff41;
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
+            --kali-blue: #0087ff;
+            --term-green: #00ff41;
+            --bg-dark: #0d0d0d;
+            --header-gray: #2d2d2d;
         }
 
         body {
             font-family: 'Fira Code', 'Courier New', monospace;
-            background-color: var(--bg);
-            color: #e0e0e0;
+            background-color: var(--bg-dark);
+            color: #d1d1d1;
             margin: 0;
             padding: 20px;
         }
 
-        .terminal-window {
-            max-width: 900px;
-            margin: 40px auto;
-            background: var(--surface);
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        .terminal-box {
+            max-width: 850px;
+            margin: 50px auto;
+            background: #1a1a1a;
+            border-radius: 6px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             overflow: hidden;
             border: 1px solid #333;
         }
 
-        .top-bar {
-            background: #333;
-            padding: 10px 15px;
+        .window-controls {
+            background: var(--header-gray);
+            padding: 10px;
             display: flex;
-            gap: 8px;
+            gap: 7px;
         }
 
         .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .close { background: #ff5f56; } .min { background: #ffbd2e; } .max { background: #27c93f; }
 
-        .content { padding: 30px; }
+        .terminal-body { padding: 25px; }
 
-        h1 { color: var(--kali-blue); font-size: 1.8rem; margin-top: 0; }
-        h2 { color: var(--terminal-green); font-size: 1.2rem; border-bottom: 1px dashed #444; padding-bottom: 5px; }
+        .prompt { color: var(--term-green); font-weight: bold; }
+        .path { color: var(--kali-blue); }
+        .cmd { color: #fff; margin-left: 10px; }
 
-        .os-tag {
-            display: inline-block;
-            background: #252525;
-            padding
+        h1 { font-size: 1.5rem; color: #fff; margin: 15px 0 5px 0; }
+        h2 { font-size: 1.1rem; color: var(--kali-blue); border-bottom: 1px solid #333; padding-bottom: 5px; margin-top: 30px; }
+
+        .skill-list {
+            display
