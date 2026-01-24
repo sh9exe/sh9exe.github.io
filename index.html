@@ -8,7 +8,6 @@
     <style>
         :root {
             --neon-pink: #ff007f;
-            --glow-pink: rgba(255, 0, 127, 0.8);
             --dark-pink: #1a000a;
             --deep-black: #020202;
         }
@@ -25,7 +24,7 @@
             overflow: hidden;
         }
 
-        /* Scanline Overlay for CRT feel */
+        /* CRT Scanline Effect */
         body::before {
             content: " ";
             position: absolute;
@@ -57,21 +56,101 @@
 
         .content { padding: 40px; }
 
-        /* Glowing & Pulsing Name */
+        /* Pulsing Glow Effect for Name */
         .glowing-name {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 5px;
             margin: 20px 0;
-            text-shadow: 
-                0 0 10px #fff,
-                0 0 20px var(--neon-pink),
-                0 0 40px var(--neon-pink),
-                0 0 80px var(--neon-pink);
+            text-align: center;
             animation: pulse-glow 2s infinite alternate;
         }
 
         @keyframes pulse-glow {
             from {
-                text-shadow: 0 0 10px #fff,
+                text-shadow: 
+                    0 0 10px #fff, 
+                    0 0 20px var(--neon-pink), 
+                    0 0 30px var(--neon-pink);
+                transform: scale(1);
+            }
+            to {
+                text-shadow: 
+                    0 0 20px #fff, 
+                    0 0 40px var(--neon-pink), 
+                    0 0 60px var(--neon-pink), 
+                    0 0 100px var(--neon-pink);
+                transform: scale(1.05);
+            }
+        }
+
+        .sudo { color: var(--neon-pink); font-weight: bold; }
+        .path { color: #555; }
+
+        .label {
+            display: inline-block;
+            border: 1px solid var(--neon-pink);
+            padding: 6px 15px;
+            margin: 5px;
+            font-size: 0.85rem;
+            color: var(--neon-pink);
+            text-transform: uppercase;
+        }
+
+        .bio-text {
+            color: #bbb;
+            border-left: 3px solid var(--neon-pink);
+            padding-left: 15px;
+            margin: 30px 0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 12px;
+            height: 24px;
+            background: var(--neon-pink);
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-window">
+        <div class="title-bar">
+            <span>root@shaikhaa: ~ (ENCRYPTED_SESSION)</span>
+        </div>
+        <div class="content">
+            <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
+            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> ./display_id</p>
+            
+            <h1 class="glowing-name">SHAIKHA</h1>
+            
+            <p style="color: var(--neon-pink); font-weight: bold; text-align: center;">[ ACCESS GRANTED ]</p>
+
+            <div class="bio-text">
+                I am a Qatari student specializing in <strong>Ethical Hacking and Cybersecurity</strong>. 
+                I focus on identifying system vulnerabilities and understanding the mechanics of digital defense. 
+                My focus remains strictly on <strong>Kali Linux</strong> and <strong>Linux Mint</strong> environments—utilizing the power of the shell for security research.
+            </div>
+
+            <div style="text-align: center;">
+                <span class="label">Kali Linux</span>
+                <span class="label">Linux Mint</span>
+                <span class="label">Ethical Hacking</span>
+                <span class="label">Cyber Security</span>
+            </div>
+
+            <p style="margin-top: 50px;">
+                <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> <span class="cursor"></span>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
