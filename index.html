@@ -8,8 +8,9 @@
     <style>
         :root {
             --neon-pink: #ff007f;
-            --dark-pink: #2d0015;
-            --deep-black: #050505;
+            --glow-pink: rgba(255, 0, 127, 0.8);
+            --dark-pink: #1a000a;
+            --deep-black: #020202;
         }
 
         body {
@@ -24,14 +25,14 @@
             overflow: hidden;
         }
 
-        /* Scanline Animation */
+        /* Scanline Overlay for CRT feel */
         body::before {
             content: " ";
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            z-index: 5;
+            background-size: 100% 3px;
             pointer-events: none;
         }
 
@@ -39,17 +40,11 @@
             position: relative;
             width: 90%;
             max-width: 800px;
-            background: rgba(10, 10, 12, 0.9);
+            background: rgba(10, 10, 12, 0.95);
             border: 2px solid var(--neon-pink);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
             border-radius: 8px;
             z-index: 3;
-            animation: pulse 4s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { box-shadow: 0 0 10px rgba(255, 0, 127, 0.2); }
-            to { box-shadow: 0 0 30px rgba(255, 0, 127, 0.6); }
+            box-shadow: 0 0 15px var(--dark-pink);
         }
 
         .title-bar {
@@ -57,85 +52,26 @@
             color: black;
             padding: 8px 15px;
             font-weight: bold;
-            display: flex;
-            justify-content: space-between;
+            font-size: 0.8rem;
         }
 
-        .content { padding: 30px; }
+        .content { padding: 40px; }
 
-        /* Typing Animation */
-        .typing {
-            width: 14ch;
-            animation: typing 2s steps(14), blink .5s step-end infinite alternate;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 3px solid var(--neon-pink);
-            font-size: 2.2rem;
+        /* Glowing & Pulsing Name */
+        .glowing-name {
+            font-size: 3rem;
             color: #fff;
             text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink);
+            animation: pulse-glow 2s infinite alternate;
         }
 
-        @keyframes typing {
-            from { width: 0 }
-        }
-        
-        @keyframes blink {
-            50% { border-color: transparent }
-        }
-
-        .sudo { color: var(--neon-pink); }
-        .path { color: #888; }
-
-        .label {
-            display: inline-block;
-            border: 1px solid var(--neon-pink);
-            padding: 4px 12px;
-            margin: 5px;
-            font-size: 0.8rem;
-            transition: 0.3s;
-        }
-
-        .label:hover {
-            background: var(--neon-pink);
-            color: black;
-            cursor: crosshair;
-        }
-
-        a { color: var(--neon-pink); text-decoration: none; }
-        a:hover { text-shadow: 0 0 8px var(--neon-pink); }
-
-    </style>
-</head>
-<body>
-
-    <div class="terminal-window">
-        <div class="title-bar">
-            <span>root@shaikhaa: /home/sh9exe</span>
-            <span>CONNECTED</span>
-        </div>
-        <div class="content">
-            <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
-            <p><span class="sudo">root@shaikhaa</span>:<span class="path">#</span> access portfolio</p>
-            
-            <h1 class="typing">SHAIKHA</h1>
-            <p style="color: #888;">> Qatari Security Researcher & Linux Specialist</p>
-
-            <div style="margin: 25px 0;">
-                <span class="label">KALI LINUX</span>
-                <span class="label">LINUX MINT</span>
-                <span class="label">SUDO MASTERY</span>
-                <span class="label">OFFENSIVE SECURITY</span>
-            </div>
-
-            <p>> Bypassing standard interfaces... Loading core expertise... I specialize in Bash environments and system hardening. No Python, just raw Linux power.</p>
-
-            <p style="margin-top: 50px;">
-                <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> ls -contact<br>
-                > <a href="mailto:shaikha@shaikhaa.xyz">email_sys</a><br>
-                > <a href="https://github.com/sh9exe">github_repo</a>
-            </p>
-        </div>
-    </div>
-
-</body>
-</html>
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 10px #fff,
