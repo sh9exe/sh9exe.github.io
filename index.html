@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>root@shaikhaa: ~</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,16 +12,18 @@
             --deep-black: #020202;
         }
 
-        /* 1. Fix Body: Remove the flex-center trap */
+        /* Fixed body to allow natural scrolling on mobile */
         body {
             background-color: var(--deep-black);
             color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
             margin: 0;
-            padding: 20px 10px; /* Space for mobile edges */
-            display: block; /* Changed from flex to block */
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
-            overflow-y: visible; /* Ensure scroll is allowed */
+            overflow-y: auto; /* Force scroll ability */
             animation: bg-pulse 8s infinite alternate;
         }
 
@@ -30,7 +32,6 @@
             to { background-color: #0d0005; }
         }
 
-        /* 2. Fix Terminal Window: Center using margin */
         .terminal-window {
             position: relative;
             width: 100%;
@@ -39,8 +40,8 @@
             border: 2px solid var(--neon-pink);
             border-radius: 8px;
             box-shadow: 0 0 20px var(--dark-pink);
-            margin: 40px auto; /* This centers it on desktop and allows scroll on mobile */
-            overflow: hidden; /* Keeps the title bar rounded corners clean */
+            margin: auto 0; /* Centers desktop, allows mobile flow */
+            overflow: hidden;
         }
 
         .title-bar {
@@ -49,51 +50,52 @@
             padding: 8px 15px;
             font-weight: bold;
             font-size: 0.8rem;
+            white-space: nowrap;
         }
 
         .content { 
-            padding: 40px; 
+            padding: 30px 20px; 
+            box-sizing: border-box;
         }
 
-        /* 3. Mobile specific adjustments */
+        /* Mobile specific font scaling */
         @media (max-width: 600px) {
-            .content { padding: 20px; }
-            .glowing-name { font-size: 1.8rem !important; letter-spacing: 2px; }
-            .bio-text { font-size: 0.9rem; padding-left: 10px; }
-            .label { font-size: 0.7rem; padding: 5px 8px; margin: 3px; }
-            .terminal-window { margin: 10px auto; } /* Less gap at top on phones */
+            .glowing-name { font-size: 2.2rem !important; letter-spacing: 2px; }
+            .content { padding: 20px 15px; }
+            .bio-text { font-size: 0.85rem; }
+            .label { font-size: 0.7rem; padding: 4px 8px; }
         }
 
         .glowing-name {
-            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-size: 3.5rem;
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 5px;
             margin: 20px 0;
             text-align: center;
             animation: pulse-glow 2s infinite alternate;
+            word-wrap: break-word;
         }
 
         @keyframes pulse-glow {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
-                transform: scale(1);
-            }
-            to {
-                text-shadow: 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink), 0 0 100px var(--neon-pink);
-                transform: scale(1.02);
-            }
+            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--neon-pink); transform: scale(1); }
+            to { text-shadow: 0 0 20px #fff, 0 0 40px var(--neon-pink), 0 0 60px var(--neon-pink); transform: scale(1.02); }
         }
 
         .sudo { color: var(--neon-pink); font-weight: bold; }
         .path { color: #555; }
 
+        .label-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
         .label {
             display: inline-block;
             border: 1px solid var(--neon-pink);
-            padding: 6px 15px;
-            margin: 5px;
-            font-size: 0.85rem;
+            padding: 6px 12px;
+            margin: 4px;
+            font-size: 0.8rem;
             color: var(--neon-pink);
             text-transform: uppercase;
         }
@@ -102,18 +104,16 @@
             color: #bbb;
             border-left: 3px solid var(--neon-pink);
             padding-left: 15px;
-            margin: 30px 0;
-            font-size: 1rem;
+            margin: 25px 0;
+            font-size: 0.95rem;
             line-height: 1.6;
             text-align: left;
         }
 
-        .bio-text strong { color: #fff; }
-
         .cursor {
             display: inline-block;
             width: 10px;
-            height: 20px;
+            height: 18px;
             background: var(--neon-pink);
             animation: blink 0.8s infinite;
             vertical-align: middle;
@@ -126,7 +126,7 @@
 
     <div class="terminal-window">
         <div class="title-bar">
-            <span>root@shaikhaa: ~ (ENCRYPTED_SESSION)</span>
+            root@shaikhaa: ~ (ENCRYPTED_SESSION)
         </div>
         <div class="content">
             <p><span class="sudo">sh9exe@kali</span>:<span class="path">~</span>$ sudo su</p>
@@ -134,23 +134,25 @@
             
             <h1 class="glowing-name">SHAIKHA</h1>
             
-            <p style="color: var(--neon-pink); font-weight: bold; text-align: center; font-size: 0.8rem;">[ QATARI CYBER SECURITY ]</p>
+            <p style="color: var(--neon-pink); font-weight: bold; text-align: center; font-size: 0.8rem; margin-bottom: 20px;">
+                [ QATARI CYBER SECURITY ]
+            </p>
 
             <div class="bio-text">
-                I am a Qatari student specializing in <strong>Ethical Hacking</strong> and <strong>Offensive Security</strong>. 
-                I focus on deconstructing system vulnerabilities and mastering the mechanics of digital defense. 
-                My research revolves around <strong>Cryptanalysis</strong> and <strong>Network Stress Testing</strong>, 
+                I am a Qatari student specializing in <strong>Ethical Hacking</strong>. 
+                I focus on identifying system vulnerabilities and mastering digital defense. 
+                My work revolves around <strong>Cryptanalysis</strong> and <strong>Network Stress Testing</strong>, 
                 utilizing the power of the shell to secure modern digital environments.
             </div>
 
-            <div style="text-align: center;">
+            <div class="label-container">
                 <span class="label">Network Stress Testing</span>
                 <span class="label">Cryptanalysis</span>
                 <span class="label">Ethical Hacking</span>
                 <span class="label">Sudo Access</span>
             </div>
 
-            <p style="margin-top: 40px;">
+            <p style="margin-top: 40px; font-size: 0.9rem;">
                 <span class="sudo">root@shaikhaa</span>:<span class="path">#</span> <span class="cursor"></span>
             </p>
         </div>
