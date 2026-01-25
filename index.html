@@ -3,491 +3,722 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Portal</title>
+    <title>CyberSec Operations | Black & White Terminal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Courier New', monospace;
+            font-family: 'Courier New', 'Consolas', monospace;
+        }
+        
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #cccccc;
+            --accent-color: #888888;
+            --bg-dark: #000000;
+            --card-bg: rgba(20, 20, 20, 0.9);
+            --border-color: #333333;
+            --text-dark: #000000;
         }
         
         body {
-            background-color: #000000;
-            color: #ffffff;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #111111 100%);
+            color: var(--primary-color);
             min-height: 100vh;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
         }
         
-        /* Header */
-        .header {
-            border-bottom: 1px solid #333333;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .site-title {
-            font-size: 1.5rem;
-            font-weight: normal;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        
-        .site-subtitle {
-            color: #888888;
-            font-size: 0.9rem;
-        }
-        
-        /* Main content grid */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-        
+        /* Mobile-first responsive design */
         @media (min-width: 768px) {
-            .content-grid {
-                grid-template-columns: repeat(2, 1fr);
+            body {
+                padding: 20px;
             }
         }
         
-        /* Category sections */
-        .category {
+        /* Minimal grid background */
+        .grid-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header - Mobile optimized */
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+        
+        @media (min-width: 640px) {
+            .header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            flex-wrap: wrap;
+        }
+        
+        @media (min-width: 640px) {
+            .logo {
+                font-size: 1.7rem;
+            }
+        }
+        
+        .logo i {
+            color: var(--primary-color);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(40, 40, 40, 0.9);
+            padding: 8px 18px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            width: fit-content;
+        }
+        
+        @media (min-width: 640px) {
+            .status-indicator {
+                font-size: 1rem;
+            }
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1; 
+                box-shadow: 0 0 5px #fff;
+            }
+            50% { 
+                opacity: 0.5; 
+                box-shadow: 0 0 10px #fff;
+            }
+        }
+        
+        /* Info Bar */
+        .info-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+        
+        @media (min-width: 768px) {
+            .info-bar {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        .info-item {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 3px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-label {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Main Dashboard - Responsive grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
             margin-bottom: 30px;
         }
         
-        .category-title {
+        @media (min-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .dashboard {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            height: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .card {
+                padding: 25px;
+            }
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-title {
             font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #333333;
-            color: #ffffff;
-            letter-spacing: 0.5px;
+            color: var(--primary-color);
+            letter-spacing: 1px;
         }
         
-        /* Link lists */
-        .link-list {
-            list-style: none;
+        @media (min-width: 768px) {
+            .card-title {
+                font-size: 1.3rem;
+            }
         }
         
-        .link-item {
-            margin-bottom: 12px;
-            padding: 8px 0;
-            border-bottom: 1px dashed #333333;
+        /* Task Progress */
+        .task-item {
+            margin-bottom: 25px;
         }
         
-        .link-item:last-child {
-            border-bottom: none;
-        }
-        
-        .link-item a {
-            color: #ffffff;
-            text-decoration: none;
+        .task-info {
             display: flex;
-            align-items: center;
-            transition: color 0.2s;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
         }
         
-        .link-item a:hover {
-            color: #cccccc;
+        .progress-container {
+            height: 6px;
+            background: rgba(60, 60, 60, 0.8);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
         }
         
-        .link-icon {
-            margin-right: 10px;
-            width: 16px;
-            text-align: center;
-            color: #888888;
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #888888, #ffffff);
+            border-radius: 3px;
+            transition: width 1s ease-in-out;
         }
         
-        .link-text {
-            flex-grow: 1;
-        }
-        
-        .link-badge {
-            background-color: #333333;
-            color: #ffffff;
-            padding: 2px 8px;
+        .task-status {
+            display: inline-block;
+            padding: 3px 12px;
             border-radius: 3px;
             font-size: 0.8rem;
-            margin-left: 10px;
-        }
-        
-        /* Important section */
-        .important-section {
-            background-color: #111111;
-            border: 1px solid #333333;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 3px;
-        }
-        
-        .important-title {
-            color: #ffffff;
             font-weight: bold;
+            background: rgba(40, 40, 40, 0.9);
+            border: 1px solid var(--border-color);
+        }
+        
+        .status-running {
+            color: #ffffff;
+            animation: blink 2s infinite;
+        }
+        
+        .status-done {
+            color: #cccccc;
+            background: rgba(30, 30, 30, 0.9);
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        @media (min-width: 640px) {
+            .tools-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .tool-item {
+            background: rgba(30, 30, 30, 0.9);
+            padding: 20px 10px;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+        
+        .tool-item:hover {
+            background: rgba(50, 50, 50, 0.9);
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        .tool-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+        
+        .tool-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        /* Terminal */
+        .terminal {
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .terminal-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .terminal-title {
+                font-size: 1.1rem;
+            }
+        }
+        
+        .terminal-content {
+            line-height: 1.6;
+        }
+        
+        .terminal-line {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        @media (min-width: 768px) {
+            .terminal-line {
+                font-size: 1rem;
+            }
+        }
+        
+        .terminal-prompt {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .terminal-command {
+            color: var(--primary-color);
+        }
+        
+        .terminal-response {
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Connection Status */
+        .connection-status {
             display: flex;
             align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
         }
         
-        .important-title i {
-            margin-right: 10px;
-            color: #ffffff;
+        @media (min-width: 640px) {
+            .connection-status {
+                font-size: 0.9rem;
+            }
         }
         
-        /* Dividers */
-        .divider {
-            height: 1px;
-            background-color: #333333;
-            margin: 30px 0;
-            border: none;
-        }
-        
-        /* Info boxes */
-        .info-box {
-            background-color: #111111;
-            border-left: 3px solid #666666;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 0.9rem;
+        .connection-indicator {
+            width: 10px;
+            height: 10px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
         }
         
         /* Footer */
         .footer {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid #333333;
-            color: #888888;
-            font-size: 0.9rem;
             text-align: center;
+            padding: 25px 0;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+            line-height: 1.6;
         }
         
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .footer-links a {
-            color: #888888;
-            text-decoration: none;
-        }
-        
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-        
-        .made-by {
-            margin-top: 20px;
-            font-style: italic;
-            color: #666666;
+        .footer p {
+            margin-bottom: 10px;
         }
         
         /* Mobile optimizations */
-        @media (max-width: 767px) {
-            body {
-                padding: 15px;
+        @media (max-width: 639px) {
+            .tools-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
             
-            .category-title {
-                font-size: 1.1rem;
+            .tool-item {
+                padding: 15px 8px;
             }
             
-            .link-item {
-                padding: 10px 0;
+            .tool-icon {
+                font-size: 1.5rem;
+            }
+            
+            .tool-name {
+                font-size: 0.8rem;
+            }
+            
+            .info-bar {
+                grid-template-columns: 1fr;
+            }
+            
+            .terminal-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .connection-status {
+                align-self: stretch;
+                justify-content: center;
             }
         }
         
-        /* Search box */
-        .search-box {
-            margin: 20px 0 30px;
-            position: relative;
+        /* Prevent text overflow on small screens */
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
-        .search-input {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: #111111;
-            border: 1px solid #333333;
-            color: #ffffff;
-            border-radius: 3px;
-            font-size: 1rem;
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
         
-        .search-input:focus {
-            outline: none;
-            border-color: #666666;
+        ::-webkit-scrollbar-track {
+            background: rgba(40, 40, 40, 0.9);
         }
         
-        .search-icon {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #888888;
+        ::-webkit-scrollbar-thumb {
+            background: rgba(100, 100, 100, 0.9);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(120, 120, 120, 0.9);
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <h1 class="site-title">TEXT PORTAL</h1>
-        <div class="site-subtitle">Minimal text-based interface</div>
-    </div>
+    <div class="grid-lines"></div>
     
-    <!-- Search Box -->
-    <div class="search-box">
-        <input type="text" class="search-input" placeholder="Find similar...">
-        <i class="fas fa-search search-icon"></i>
-    </div>
-    
-    <!-- Main Content Grid -->
-    <div class="content-grid">
-        <!-- Left Column -->
-        <div>
-            <!-- Links Section -->
-            <div class="category">
-                <h2 class="category-title">Links.</h2>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">rentry.co</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Symbols</span>
-                            <span class="link-badge">new</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Pixels</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Dividers</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Masks</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">PNGs</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Stamps</span>
-                        </a>
-                    </li>
-                </ul>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-terminal"></i>
+                <span>CYBERSEC_OPS // MONOCHROME_TERMINAL</span>
             </div>
             
-            <!-- Templates Section -->
-            <div class="category">
-                <h2 class="category-title">Templates.</h2>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Frames</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Buttons</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Borders</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Overlays</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">GIFs</span>
-                            <span class="link-badge">12</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>UPLINK: **SECURE**</span>
             </div>
         </div>
         
-        <!-- Right Column -->
-        <div>
-            <!-- Important Section -->
-            <div class="important-section">
-                <h3 class="important-title">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Important.
-                </h3>
-                <div class="link-list">
-                    <div class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Palestine</span>
-                        </a>
+        <!-- Info Bar -->
+        <div class="info-bar">
+            <div class="info-item">
+                <div class="info-label">DATE</div>
+                <div>JAN_25_2026</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">TIME</div>
+                <div>20:08:47 GMT+3</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">LOCATION</div>
+                <div>25.2854° N (QATAR)</div>
+            </div>
+        </div>
+        
+        <!-- Main Dashboard -->
+        <div class="dashboard">
+            <!-- Active Tasks Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">ACTIVE TASKS</div>
+                    <i class="fas fa-tasks" style="color: #ffffff;"></i>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-info">
+                        <span>Brute-forcing Hash...</span>
+                        <span class="task-status status-running">72%</span>
                     </div>
-                    <div class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Daily Click</span>
-                        </a>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 72%;"></div>
                     </div>
-                    <div class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Find similar></span>
-                            <span class="link-badge">!</span>
-                        </a>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-info">
+                        <span>Sniffing Local Packets...</span>
+                        <span class="task-status status-done">DONE</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 100%;"></div>
+                    </div>
+                </div>
+                
+                <div class="task-item">
+                    <div class="task-info">
+                        <span>DDoS Mitigation Test...</span>
+                        <span class="task-status status-running">RUNNING</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 45%;"></div>
                     </div>
                 </div>
             </div>
             
-            <!-- Info Section -->
-            <div class="category">
-                <h2 class="category-title">Info.</h2>
-                <ul class="link-list">
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Site-info</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Logs</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">FAQ</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Resources</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Contact</span>
-                        </a>
-                    </li>
-                    <li class="link-item">
-                        <a href="#">
-                            <span class="link-icon">→</span>
-                            <span class="link-text">Comms</span>
-                            <span class="link-badge">3</span>
-                        </a>
-                    </li>
-                </ul>
+            <!-- Tools Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">SECURITY TOOLS</div>
+                    <i class="fas fa-tools" style="color: #ffffff;"></i>
+                </div>
+                
+                <div class="tools-grid">
+                    <div class="tool-item">
+                        <div class="tool-icon">
+                            <i class="fas fa-traffic-light"></i>
+                        </div>
+                        <div class="tool-name">TRAFFIC</div>
+                    </div>
+                    
+                    <div class="tool-item">
+                        <div class="tool-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="tool-name">DDOS TOOLS</div>
+                    </div>
+                    
+                    <div class="tool-item">
+                        <div class="tool-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="tool-name">PWD CRACK</div>
+                    </div>
+                    
+                    <div class="tool-item">
+                        <div class="tool-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div class="tool-name">ETHICAL HACK</div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Info Box -->
-            <div class="info-box">
-                <p>This is a minimal text-based interface inspired by rentry.co. All content is organized in simple lists with clear categorization.</p>
+            <!-- System Status Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">SYSTEM STATUS</div>
+                    <i class="fas fa-server" style="color: #ffffff;"></i>
+                </div>
+                
+                <div class="terminal">
+                    <div class="terminal-header">
+                        <div class="terminal-title">@offensive-lab:~$</div>
+                        <div class="connection-status">
+                            <div class="connection-indicator"></div>
+                            <span>ENCRYPTED TUNNEL ACTIVE</span>
+                        </div>
+                    </div>
+                    
+                    <div class="terminal-content">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">user@offensive-lab:~$</span>
+                            <span class="terminal-command"> start --network-sweep</span>
+                        </div>
+                        <div class="terminal-line terminal-response">
+                            > Initializing network sweep protocol...
+                        </div>
+                        <div class="terminal-line terminal-response">
+                            > Scanning subnet 192.168.1.0/24...
+                        </div>
+                        <div class="terminal-line terminal-response">
+                            > 15 active hosts detected
+                        </div>
+                        <div class="terminal-line terminal-response">
+                            > Encryption: AES-256-GCM active
+                        </div>
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">user@offensive-lab:~$</span>
+                            <span class="terminal-command"> _</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Divider -->
-    <hr class="divider">
-    
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Status</a>
         </div>
         
-        <div class="made-by">
-            made by: pueriled
+        <!-- Footer -->
+        <div class="footer">
+            <p>EM_LOGGED_IN | SECURE SESSION ACTIVE | OPERATIVE: ART_SEC_OFFENSIVE_RESEARCH</p>
+            <p>F F I C M O N I T O R I N G</p>
+            <p>© 2026 CYBERSECURITY OPERATIONS - MONOCHROME TERMINAL v2.0</p>
         </div>
     </div>
-    
+
     <script>
-        // Simple search functionality
+        // Make progress bars animated
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.querySelector('.search-input');
-            const allLinks = document.querySelectorAll('.link-text');
+            const progressBars = document.querySelectorAll('.progress-bar');
             
-            searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase().trim();
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
                 
-                allLinks.forEach(link => {
-                    const linkText = link.textContent.toLowerCase();
-                    const linkItem = link.closest('.link-item');
-                    
-                    if (searchTerm === '') {
-                        linkItem.style.display = 'block';
-                    } else if (linkText.includes(searchTerm)) {
-                        linkItem.style.display = 'block';
-                    } else {
-                        linkItem.style.display = 'none';
-                    }
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+            
+            // Add blinking cursor effect to terminal
+            const cursor = document.querySelector('.terminal-command');
+            let cursorVisible = true;
+            
+            setInterval(() => {
+                cursorVisible = !cursorVisible;
+                cursor.style.opacity = cursorVisible ? '1' : '0';
+            }, 500);
+            
+            // Make tool items interactive
+            const toolItems = document.querySelectorAll('.tool-item');
+            toolItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const toolName = this.querySelector('.tool-name').textContent;
+                    // Add visual feedback
+                    this.style.background = 'rgba(70, 70, 70, 0.9)';
+                    setTimeout(() => {
+                        this.style.background = '';
+                    }, 300);
                 });
             });
             
-            // Make links clickable (in a real site, these would have actual hrefs)
-            const links = document.querySelectorAll('.link-item a');
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    if (this.getAttribute('href') === '#') {
-                        e.preventDefault();
-                        const linkText = this.querySelector('.link-text').textContent;
-                        alert(`Clicked: ${linkText} (in a real site, this would navigate)`);
-                    }
-                });
-            });
-            
-            // Add some subtle animation to link hovers
-            const linkItems = document.querySelectorAll('.link-item');
-            linkItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(5px)';
-                    this.style.transition = 'transform 0.2s';
-                });
+            // Update time in real-time
+            function updateTime() {
+                const now = new Date();
+                const timeElement = document.querySelector('.info-item:nth-child(2) div:last-child');
                 
-                item.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(0)';
+                // Format as 20:08:47 GMT+3
+                const hours = now.getHours().toString().padStart(2, '0');
+                const minutes = now.getMinutes().toString().padStart(2, '0');
+                const seconds = now.getSeconds().toString().padStart(2, '0');
+                
+                timeElement.textContent = `${hours}:${minutes}:${seconds} GMT+3`;
+            }
+            
+            // Update time every second
+            setInterval(updateTime, 1000);
+            updateTime();
+            
+            // Add some terminal-like typing effects
+            setTimeout(() => {
+                const responses = document.querySelectorAll('.terminal-response');
+                responses.forEach((response, index) => {
+                    response.style.opacity = '0';
+                    setTimeout(() => {
+                        response.style.transition = 'opacity 0.5s';
+                        response.style.opacity = '1';
+                    }, 500 + (index * 300));
                 });
-            });
+            }, 1000);
         });
     </script>
 </body>
