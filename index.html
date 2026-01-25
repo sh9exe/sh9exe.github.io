@@ -3,645 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSec Operations | Offensive Research Lab</title>
+    <title>Text Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-        
-        :root {
-            --primary-color: #00ff00;
-            --secondary-color: #00ff9d;
-            --bg-dark: #0a0a0a;
-            --card-bg: rgba(10, 20, 10, 0.7);
-            --accent-color: #009900;
+            font-family: 'Segoe UI', 'Courier New', monospace;
         }
         
         body {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: var(--primary-color);
-            min-height: 100vh;
-            padding: 15px;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* Mobile-first responsive design */
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-            }
-        }
-        
-        /* Animated background elements */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 0, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 150, 255, 0.05) 0%, transparent 50%);
-            z-index: -1;
-        }
-        
-        .grid-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 0, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 1200px;
+            background-color: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
             margin: 0 auto;
-            width: 100%;
+            min-height: 100vh;
         }
         
-        /* Header - Mobile optimized */
+        /* Header */
         .header {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.3);
-            margin-bottom: 25px;
-        }
-        
-        @media (min-width: 640px) {
-            .header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                gap: 20px;
-            }
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            flex-wrap: wrap;
-        }
-        
-        @media (min-width: 640px) {
-            .logo {
-                font-size: 1.8rem;
-            }
-        }
-        
-        .logo i {
-            color: var(--secondary-color);
-        }
-        
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 30, 0, 0.7);
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--primary-color);
-            font-size: 0.9rem;
-            width: fit-content;
-        }
-        
-        @media (min-width: 640px) {
-            .status-indicator {
-                font-size: 1rem;
-            }
-        }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        /* Info Bar */
-        .info-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-        }
-        
-        @media (min-width: 768px) {
-            .info-bar {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                font-size: 0.9rem;
-            }
-        }
-        
-        .info-item {
-            background: rgba(0, 30, 0, 0.3);
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .info-label {
-            color: var(--secondary-color);
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-        
-        /* Main Dashboard - Responsive grid */
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 20px;
             margin-bottom: 30px;
         }
         
-        @media (min-width: 768px) {
-            .dashboard {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
-            }
-        }
-        
-        @media (min-width: 1024px) {
-            .dashboard {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(0, 255, 0, 0.2);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            height: 100%;
-        }
-        
-        @media (min-width: 768px) {
-            .card {
-                padding: 25px;
-            }
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(0, 255, 0, 0.2);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-        }
-        
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-        
-        @media (min-width: 768px) {
-            .card-title {
-                font-size: 1.3rem;
-            }
-        }
-        
-        /* Task Progress */
-        .task-item {
-            margin-bottom: 20px;
-        }
-        
-        .task-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .progress-container {
-            height: 8px;
-            background: rgba(0, 30, 0, 0.5);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            border-radius: 4px;
-            transition: width 1s ease-in-out;
-        }
-        
-        .task-status {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .status-running {
-            background: rgba(0, 100, 0, 0.3);
-            color: #00ff00;
-            animation: blink 1.5s infinite;
-        }
-        
-        .status-done {
-            background: rgba(0, 50, 0, 0.3);
-            color: #00ff00;
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        
-        /* Tools Grid */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        @media (min-width: 640px) {
-            .tools-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        .tool-item {
-            background: rgba(0, 40, 0, 0.3);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
-        
-        .tool-item:hover {
-            background: rgba(0, 60, 0, 0.5);
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-        }
-        
-        .tool-icon {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-        
-        .tool-name {
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-        
-        /* Terminal */
-        .terminal {
-            background: rgba(0, 10, 0, 0.8);
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-        }
-        
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
-        }
-        
-        .terminal-title {
-            color: var(--secondary-color);
-            font-weight: bold;
-        }
-        
-        .terminal-content {
-            line-height: 1.6;
-        }
-        
-        .terminal-line {
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: normal;
+            letter-spacing: 1px;
             margin-bottom: 5px;
         }
         
-        .terminal-prompt {
-            color: var(--secondary-color);
+        .site-subtitle {
+            color: #888888;
+            font-size: 0.9rem;
+        }
+        
+        /* Main content grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        
+        @media (min-width: 768px) {
+            .content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Category sections */
+        .category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
             font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333333;
+            color: #ffffff;
+            letter-spacing: 0.5px;
         }
         
-        .terminal-command {
-            color: var(--primary-color);
+        /* Link lists */
+        .link-list {
+            list-style: none;
         }
         
-        .terminal-response {
-            color: #00ccff;
+        .link-item {
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #333333;
         }
         
-        /* Connection Status */
-        .connection-status {
+        .link-item:last-child {
+            border-bottom: none;
+        }
+        
+        .link-item a {
+            color: #ffffff;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-            padding: 10px;
-            background: rgba(0, 30, 0, 0.3);
-            border-radius: 8px;
+            transition: color 0.2s;
         }
         
-        .connection-indicator {
-            width: 12px;
-            height: 12px;
-            background: #00ff00;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        .link-item a:hover {
+            color: #cccccc;
+        }
+        
+        .link-icon {
+            margin-right: 10px;
+            width: 16px;
+            text-align: center;
+            color: #888888;
+        }
+        
+        .link-text {
+            flex-grow: 1;
+        }
+        
+        .link-badge {
+            background-color: #333333;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        /* Important section */
+        .important-section {
+            background-color: #111111;
+            border: 1px solid #333333;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 3px;
+        }
+        
+        .important-title {
+            color: #ffffff;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .important-title i {
+            margin-right: 10px;
+            color: #ffffff;
+        }
+        
+        /* Dividers */
+        .divider {
+            height: 1px;
+            background-color: #333333;
+            margin: 30px 0;
+            border: none;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background-color: #111111;
+            border-left: 3px solid #666666;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
         }
         
         /* Footer */
         .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #333333;
+            color: #888888;
+            font-size: 0.9rem;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 30px;
-            border-top: 1px solid rgba(0, 255, 0, 0.2);
-            font-size: 0.8rem;
-            color: rgba(0, 255, 0, 0.7);
         }
         
-        /* Mobile menu toggle (if needed) */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            cursor: pointer;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
         }
         
-        @media (max-width: 639px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+        .footer-links a {
+            color: #888888;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        
+        .made-by {
+            margin-top: 20px;
+            font-style: italic;
+            color: #666666;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 767px) {
+            body {
+                padding: 15px;
             }
             
-            .tool-item {
-                padding: 12px;
+            .category-title {
+                font-size: 1.1rem;
             }
             
-            .tool-icon {
-                font-size: 1.5rem;
-            }
-            
-            .info-bar {
-                grid-template-columns: 1fr;
+            .link-item {
+                padding: 10px 0;
             }
         }
         
-        /* Prevent text overflow on small screens */
-        .truncate {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        /* Search box */
+        .search-box {
+            margin: 20px 0 30px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #111111;
+            border: 1px solid #333333;
+            color: #ffffff;
+            border-radius: 3px;
+            font-size: 1rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #666666;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888888;
         }
     </style>
 </head>
 <body>
-    <div class="grid-lines"></div>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="site-title">TEXT PORTAL</h1>
+        <div class="site-subtitle">Minimal text-based interface</div>
+    </div>
     
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo">
-                <i class="fas fa-terminal"></i>
-                <span>CYBERSEC_OPS // OFFENSIVE_RESEARCH</span>
+    <!-- Search Box -->
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="Find similar...">
+        <i class="fas fa-search search-icon"></i>
+    </div>
+    
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+        <!-- Left Column -->
+        <div>
+            <!-- Links Section -->
+            <div class="category">
+                <h2 class="category-title">Links.</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">rentry.co</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Symbols</span>
+                            <span class="link-badge">new</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Pixels</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Dividers</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Masks</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">PNGs</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Stamps</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
             
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>UPLINK: **SECURE**</span>
+            <!-- Templates Section -->
+            <div class="category">
+                <h2 class="category-title">Templates.</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Frames</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Buttons</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Borders</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Overlays</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">GIFs</span>
+                            <span class="link-badge">12</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         
-        <!-- Info Bar -->
-        <div class="info-bar">
-            <div class="info-item">
-                <div class="info-label">DATE</div>
-                <div>JAN_25_2026</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">TIME</div>
-                <div>20:08:47 GMT+3</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">LOCATION</div>
-                <div>25.2854° N (QATAR)</div>
-            </div>
-        </div>
-        
-        <!-- Main Dashboard -->
-        <div class="dashboard">
-            <!-- Active Tasks Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">ACTIVE TASKS</div>
-                    <i class="fas fa-tasks" style="color: #00ff00;"></i>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>Brute-forcing Hash...</span>
-                        <span class="task-status status-running">72%</span>
+        <!-- Right Column -->
+        <div>
+            <!-- Important Section -->
+            <div class="important-section">
+                <h3 class="important-title">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Important.
+                </h3>
+                <div class="link-list">
+                    <div class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Palestine</span>
+                        </a>
                     </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 72%;"></div>
+                    <div class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Daily Click</span>
+                        </a>
                     </div>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>Sniffing Local Packets...</span>
-                        <span class="task-status status-done">DONE</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 100%;"></div>
-                    </div>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>DDoS Mitigation Test...</span>
-                        <span class="task-status status-running">RUNNING</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 45%;"></div>
+                    <div class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Find similar></span>
+                            <span class="link-badge">!</span>
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Tools Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">SECURITY TOOLS</div>
-                    <i class="fas fa-tools" style="color: #00ff00;"></i>
-                </div>
-                
-                <div class="tools-grid">
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-traffic-light"></i>
-                        </div>
-                        <div class="tool-name">TRAFFIC</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="tool-name">DDOS TOOLS</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <div class="tool-name">PWD CRACK</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        <div class="tool-name">ETHICAL HACK</div>
-                    </div>
-                </div>
+            <!-- Info Section -->
+            <div class="category">
+                <h2 class="category-title">Info.</h2>
+                <ul class="link-list">
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Site-info</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">FAQ</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Resources</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Contact</span>
+                        </a>
+                    </li>
+                    <li class="link-item">
+                        <a href="#">
+                            <span class="link-icon">→</span>
+                            <span class="link-text">Comms</span>
+                            <span class="link-badge">3</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
             
-            <!-- System Status Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">SYSTEM STATUS</div>
-                    <i class="fas fa-server" style="color: #00ff00;"></i>
-                </div>
-                
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-title">@offensive-lab:~$</div>
-                        <div class="connection-status">
-                            <div class="connection-indicator"></div>
-                            <span>ENCRYPTED TUNNEL ACTIVE</span>
-                        </div>
-                    </div>
-                    
-                    <div class="terminal-content">
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">user@offensive-lab:~$</span>
-                            <span class="terminal-command"> start --network-sweep</span>
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > Initializing network sweep protocol...
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > Scanning subnet 192.168.1.0/24...
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > 15 active hosts detected
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">user@offensive-lab:~$</span>
-                            <span class="terminal-command"> _</span>
-                        </div>
-                    </div>
-                </div>
+            <!-- Info Box -->
+            <div class="info-box">
+                <p>This is a minimal text-based interface inspired by rentry.co. All content is organized in simple lists with clear categorization.</p>
             </div>
-        </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>EM_LOGGED_IN | SECURE SESSION ACTIVE | OPERATIVE: ART_SEC_OFFENSIVE_RESEARCH</p>
-            <p>© 2026 CYBERSECURITY OPERATIONS - FOR AUTHORIZED PERSONNEL ONLY</p>
         </div>
     </div>
-
+    
+    <!-- Divider -->
+    <hr class="divider">
+    
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Status</a>
+        </div>
+        
+        <div class="made-by">
+            made by: pueriled
+        </div>
+    </div>
+    
     <script>
-        // Make progress bars animated
+        // Simple search functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const progressBars = document.querySelectorAll('.progress-bar');
+            const searchInput = document.querySelector('.search-input');
+            const allLinks = document.querySelectorAll('.link-text');
             
-            progressBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
                 
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 300);
-            });
-            
-            // Add blinking cursor effect to terminal
-            const cursor = document.querySelector('.terminal-command');
-            let cursorVisible = true;
-            
-            setInterval(() => {
-                cursorVisible = !cursorVisible;
-                cursor.style.opacity = cursorVisible ? '1' : '0';
-            }, 500);
-            
-            // Make tool items interactive
-            const toolItems = document.querySelectorAll('.tool-item');
-            toolItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const toolName = this.querySelector('.tool-name').textContent;
-                    alert(`Launching ${toolName} tool...`);
+                allLinks.forEach(link => {
+                    const linkText = link.textContent.toLowerCase();
+                    const linkItem = link.closest('.link-item');
+                    
+                    if (searchTerm === '') {
+                        linkItem.style.display = 'block';
+                    } else if (linkText.includes(searchTerm)) {
+                        linkItem.style.display = 'block';
+                    } else {
+                        linkItem.style.display = 'none';
+                    }
                 });
             });
             
-            // Update time in real-time
-            function updateTime() {
-                const now = new Date();
-                const timeElement = document.querySelector('.info-item:nth-child(2) div:last-child');
-                
-                // Format as 20:08:47 GMT+3
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                
-                timeElement.textContent = `${hours}:${minutes}:${seconds} GMT+3`;
-            }
+            // Make links clickable (in a real site, these would have actual hrefs)
+            const links = document.querySelectorAll('.link-item a');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        const linkText = this.querySelector('.link-text').textContent;
+                        alert(`Clicked: ${linkText} (in a real site, this would navigate)`);
+                    }
+                });
+            });
             
-            // Update time every second
-            setInterval(updateTime, 1000);
-            updateTime();
+            // Add some subtle animation to link hovers
+            const linkItems = document.querySelectorAll('.link-item');
+            linkItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                    this.style.transition = 'transform 0.2s';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
         });
     </script>
 </body>
