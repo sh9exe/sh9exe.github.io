@@ -3,723 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSec Operations | Black & White Terminal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>root@shaikhaa: ~</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', 'Consolas', monospace;
-        }
-        
         :root {
-            --primary-color: #ffffff;
-            --secondary-color: #cccccc;
-            --accent-color: #888888;
-            --bg-dark: #000000;
-            --card-bg: rgba(20, 20, 20, 0.9);
-            --border-color: #333333;
-            --text-dark: #000000;
+            --neon-white: #ffffff;
+            --dim-white: #a0a0a0;
+            --bg-black: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-white: rgba(255, 255, 255, 0.2);
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #111111 100%);
-            color: var(--primary-color);
+            background-color: var(--bg-black);
+            color: var(--neon-white);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px;
             overflow-x: hidden;
-            position: relative;
-        }
-        
-        /* Mobile-first responsive design */
-        @media (min-width: 768px) {
-            body {
-                padding: 20px;
-            }
-        }
-        
-        /* Minimal grid background */
-        .grid-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            /* Thin Grey Grid Background */
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 40px 40px;
-            z-index: -1;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        /* Floating HUD Container */
+        .hud-container {
             width: 100%;
+            max-width: 900px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            animation: float 6s ease-in-out infinite;
         }
-        
-        /* Header - Mobile optimized */
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Header Section */
         .header {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-white);
+            padding-bottom: 20px;
             margin-bottom: 25px;
-        }
-        
-        @media (min-width: 640px) {
-            .header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                gap: 20px;
-            }
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            flex-wrap: wrap;
-        }
-        
-        @media (min-width: 640px) {
-            .logo {
-                font-size: 1.7rem;
-            }
-        }
-        
-        .logo i {
-            color: var(--primary-color);
-        }
-        
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(40, 40, 40, 0.9);
-            padding: 8px 18px;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            width: fit-content;
-        }
-        
-        @media (min-width: 640px) {
-            .status-indicator {
-                font-size: 1rem;
-            }
-        }
-        
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { 
-                opacity: 1; 
-                box-shadow: 0 0 5px #fff;
-            }
-            50% { 
-                opacity: 0.5; 
-                box-shadow: 0 0 10px #fff;
-            }
-        }
-        
-        /* Info Bar */
-        .info-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
         }
-        
+
         @media (min-width: 768px) {
-            .info-bar {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                font-size: 0.9rem;
-            }
+            .header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .hud-container { padding: 40px; }
         }
-        
-        .info-item {
-            background: rgba(30, 30, 30, 0.8);
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 3px solid var(--primary-color);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+        .root-prompt {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-white);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            word-break: break-all;
         }
-        
-        .info-label {
-            color: var(--secondary-color);
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+
+        @media (min-width: 768px) { .root-prompt { font-size: 2.8rem; } }
+
+        .cursor { animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Status Bar */
+        .status-bar {
+            font-family: monospace;
+            color: var(--dim-white);
+            font-size: 0.75rem;
+            line-height: 1.5;
+            text-align: left;
         }
-        
-        /* Main Dashboard - Responsive grid */
-        .dashboard {
+
+        @media (min-width: 768px) { .status-bar { text-align: right; font-size: 0.85rem; } }
+
+        /* Content Grid */
+        .grid-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
-            margin-bottom: 30px;
         }
-        
-        @media (min-width: 768px) {
-            .dashboard {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
-            }
+
+        @media (min-width: 768px) { .grid-layout { grid-template-columns: 1fr 1.5fr; } }
+
+        .module {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-white);
+            padding: 15px;
+            border-radius: 10px;
         }
-        
-        @media (min-width: 1024px) {
-            .dashboard {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            height: 100%;
-        }
-        
-        @media (min-width: 768px) {
-            .card {
-                padding: 25px;
-            }
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-color);
-            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .card-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            letter-spacing: 1px;
-        }
-        
-        @media (min-width: 768px) {
-            .card-title {
-                font-size: 1.3rem;
-            }
-        }
-        
-        /* Task Progress */
-        .task-item {
-            margin-bottom: 25px;
-        }
-        
-        .task-info {
-            display: flex;
-            justify-content: space-between;
+
+        .label {
+            color: var(--dim-white);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
             margin-bottom: 10px;
-            font-size: 0.9rem;
         }
-        
-        .progress-container {
-            height: 6px;
-            background: rgba(60, 60, 60, 0.8);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+
+        /* Traffic Bars (White Version) */
+        .visualizer { height: 40px; display: flex; align-items: flex-end; gap: 4px; }
+        .bar { flex: 1; background: var(--neon-white); animation: pulse 1.2s infinite ease-in-out; opacity: 0.8; }
+
+        @keyframes pulse {
+            0%, 100% { height: 30%; opacity: 0.3; }
+            50% { height: 100%; opacity: 0.9; }
         }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #888888, #ffffff);
-            border-radius: 3px;
-            transition: width 1s ease-in-out;
-        }
-        
-        .task-status {
-            display: inline-block;
-            padding: 3px 12px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            background: rgba(40, 40, 40, 0.9);
-            border: 1px solid var(--border-color);
-        }
-        
-        .status-running {
-            color: #ffffff;
-            animation: blink 2s infinite;
-        }
-        
-        .status-done {
-            color: #cccccc;
-            background: rgba(30, 30, 30, 0.9);
-        }
-        
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        /* Tools Grid */
-        .tools-grid {
+
+        /* Button Grid */
+        .btn-group {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
         }
-        
-        @media (min-width: 640px) {
-            .tools-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        .tool-item {
-            background: rgba(30, 30, 30, 0.9);
-            padding: 20px 10px;
+
+        @media (min-width: 768px) { .btn-group { grid-template-columns: repeat(4, 1fr); } }
+
+        .pill {
+            padding: 12px 5px;
+            border: 1px solid var(--border-white);
             border-radius: 4px;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-        
-        .tool-item:hover {
-            background: rgba(50, 50, 50, 0.9);
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-        }
-        
-        .tool-icon {
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            color: var(--primary-color);
-        }
-        
-        .tool-name {
-            font-size: 0.9rem;
+            font-size: 0.65rem;
             font-weight: bold;
-            letter-spacing: 1px;
+            color: var(--neon-white);
+            background: transparent;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
-        
-        /* Terminal */
-        .terminal {
-            background: rgba(10, 10, 10, 0.95);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 20px;
+
+        .pill:active, .pill:hover {
+            background: var(--neon-white);
+            color: black;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .terminal-output {
             margin-top: 20px;
-            font-family: 'Courier New', monospace;
-            overflow-x: auto;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        .terminal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .terminal-title {
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        
-        @media (min-width: 640px) {
-            .terminal-title {
-                font-size: 1.1rem;
-            }
-        }
-        
-        .terminal-content {
-            line-height: 1.6;
-        }
-        
-        .terminal-line {
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-        
-        @media (min-width: 768px) {
-            .terminal-line {
-                font-size: 1rem;
-            }
-        }
-        
-        .terminal-prompt {
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        .terminal-command {
-            color: var(--primary-color);
-        }
-        
-        .terminal-response {
-            color: var(--secondary-color);
-            padding-left: 20px;
-        }
-        
-        /* Connection Status */
-        .connection-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            background: rgba(30, 30, 30, 0.9);
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            font-size: 0.85rem;
-        }
-        
-        @media (min-width: 640px) {
-            .connection-status {
-                font-size: 0.9rem;
-            }
-        }
-        
-        .connection-indicator {
-            width: 10px;
-            height: 10px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 25px 0;
-            margin-top: 40px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            color: var(--secondary-color);
-            letter-spacing: 1px;
-            line-height: 1.6;
-        }
-        
-        .footer p {
-            margin-bottom: 10px;
-        }
-        
-        /* Mobile optimizations */
-        @media (max-width: 639px) {
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-            
-            .tool-item {
-                padding: 15px 8px;
-            }
-            
-            .tool-icon {
-                font-size: 1.5rem;
-            }
-            
-            .tool-name {
-                font-size: 0.8rem;
-            }
-            
-            .info-bar {
-                grid-template-columns: 1fr;
-            }
-            
-            .terminal-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .connection-status {
-                align-self: stretch;
-                justify-content: center;
-            }
-        }
-        
-        /* Prevent text overflow on small screens */
-        .truncate {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(40, 40, 40, 0.9);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: rgba(100, 100, 100, 0.9);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(120, 120, 120, 0.9);
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--dim-white);
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
-    <div class="grid-lines"></div>
-    
-    <div class="container">
-        <!-- Header -->
+
+    <div class="hud-container">
         <div class="header">
-            <div class="logo">
-                <i class="fas fa-terminal"></i>
-                <span>CYBERSEC_OPS // MONOCHROME_TERMINAL</span>
+            <div>
+                <p class="label">[ SYSTEM_LOGGED_IN ]</p>
+                <div class="root-prompt">
+                    root@shaikhaa:<span style="color:var(--dim-white)">~#</span><span class="cursor">_</span>
+                </div>
+                <p style="margin-top: 8px; color: var(--dim-white); font-size: 0.8rem; opacity: 0.8;">
+                    // QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH
+                </p>
             </div>
             
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>UPLINK: **SECURE**</span>
+            <div class="status-bar" id="live-status">
+                <span id="live-date">---</span><br>
+                <span id="live-time">---</span><br>
+                LOC: 25.2854° N (QATAR)<br>
+                UPLINK: <span id="uplink" style="color:white; font-weight:bold;">SECURE</span>
             </div>
         </div>
-        
-        <!-- Info Bar -->
-        <div class="info-bar">
-            <div class="info-item">
-                <div class="info-label">DATE</div>
-                <div>JAN_25_2026</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">TIME</div>
-                <div>20:08:47 GMT+3</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">LOCATION</div>
-                <div>25.2854° N (QATAR)</div>
-            </div>
-        </div>
-        
-        <!-- Main Dashboard -->
-        <div class="dashboard">
-            <!-- Active Tasks Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">ACTIVE TASKS</div>
-                    <i class="fas fa-tasks" style="color: #ffffff;"></i>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>Brute-forcing Hash...</span>
-                        <span class="task-status status-running">72%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 72%;"></div>
-                    </div>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>Sniffing Local Packets...</span>
-                        <span class="task-status status-done">DONE</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 100%;"></div>
-                    </div>
-                </div>
-                
-                <div class="task-item">
-                    <div class="task-info">
-                        <span>DDoS Mitigation Test...</span>
-                        <span class="task-status status-running">RUNNING</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 45%;"></div>
-                    </div>
+
+        <div class="grid-layout">
+            <div class="module">
+                <span class="label">Traffic Monitoring</span>
+                <div class="visualizer">
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.3s"></div>
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                    <div class="bar" style="animation-delay: 0.5s"></div>
+                    <div class="bar" style="animation-delay: 0.4s"></div>
                 </div>
             </div>
-            
-            <!-- Tools Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">SECURITY TOOLS</div>
-                    <i class="fas fa-tools" style="color: #ffffff;"></i>
-                </div>
-                
-                <div class="tools-grid">
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-traffic-light"></i>
-                        </div>
-                        <div class="tool-name">TRAFFIC</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="tool-name">DDOS TOOLS</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <div class="tool-name">PWD CRACK</div>
-                    </div>
-                    
-                    <div class="tool-item">
-                        <div class="tool-icon">
-                            <i class="fas fa-user-secret"></i>
-                        </div>
-                        <div class="tool-name">ETHICAL HACK</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- System Status Card -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">SYSTEM STATUS</div>
-                    <i class="fas fa-server" style="color: #ffffff;"></i>
-                </div>
-                
-                <div class="terminal">
-                    <div class="terminal-header">
-                        <div class="terminal-title">@offensive-lab:~$</div>
-                        <div class="connection-status">
-                            <div class="connection-indicator"></div>
-                            <span>ENCRYPTED TUNNEL ACTIVE</span>
-                        </div>
-                    </div>
-                    
-                    <div class="terminal-content">
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">shaikha@offensive-lab:~$</span>
-                            <span class="terminal-command"> start --network-sweep</span>
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > Initializing network sweep protocol...
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > Scanning subnet 192.168.1.0/24...
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > 15 active hosts detected
-                        </div>
-                        <div class="terminal-line terminal-response">
-                            > Encryption: AES-256-GCM active
-                        </div>
-                        <div class="terminal-line">
-                            <span class="terminal-prompt">shaikha@offensive-lab:~$</span>
-                            <span class="terminal-command"> _</span>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="module">
+                <span class="label">Active Tasks</span>
+                <p class="terminal-output" style="color: white; opacity: 0.7; margin-top: 0;">
+                    [>] Brute-forcing Hash... <span style="font-weight:bold;">72%</span><br>
+                    [>] Sniffing Local Packets... <span style="font-weight:bold;">DONE</span><br>
+                    [>] DDoS Mitigation Test... <span style="font-weight:bold;">RUNNING</span>
+                </p>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>EM_LOGGED_IN | SECURE SESSION ACTIVE | OPERATIVE: ART_SEC_OFFENSIVE_RESEARCH</p>
-            <p>F F I C M O N I T O R I N G</p>
-            <p>© 2026 CYBERSECURITY OPERATIONS - MONOCHROME TERMINAL v2.0</p>
+
+        <div class="btn-group">
+            <div class="pill">Traffic</div>
+            <div class="pill">DDoS Tools</div>
+            <div class="pill">Pwd Crack</div>
+            <div class="pill">Ethical Hack</div>
+        </div>
+
+        <div class="terminal-output" style="opacity: 0.4; font-size: 0.65rem; border-top: 1px solid var(--border-white); padding-top: 15px;">
+            shaikha@offensive-lab:~$ start --network-sweep<br>
+            [SUCCESS] Connection established via encrypted tunnel.
         </div>
     </div>
 
     <script>
-        // Make progress bars animated
-        document.addEventListener('DOMContentLoaded', function() {
-            const progressBars = document.querySelectorAll('.progress-bar');
-            
-            progressBars.forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0';
-                
-                setTimeout(() => {
-                    bar.style.width = width;
-                }, 300);
-            });
-            
-            // Add blinking cursor effect to terminal
-            const cursor = document.querySelector('.terminal-command');
-            let cursorVisible = true;
-            
-            setInterval(() => {
-                cursorVisible = !cursorVisible;
-                cursor.style.opacity = cursorVisible ? '1' : '0';
-            }, 500);
-            
-            // Make tool items interactive
-            const toolItems = document.querySelectorAll('.tool-item');
-            toolItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const toolName = this.querySelector('.tool-name').textContent;
-                    // Add visual feedback
-                    this.style.background = 'rgba(70, 70, 70, 0.9)';
-                    setTimeout(() => {
-                        this.style.background = '';
-                    }, 300);
-                });
-            });
-            
-            // Update time in real-time
-            function updateTime() {
-                const now = new Date();
-                const timeElement = document.querySelector('.info-item:nth-child(2) div:last-child');
-                
-                // Format as 20:08:47 GMT+3
-                const hours = now.getHours().toString().padStart(2, '0');
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const seconds = now.getSeconds().toString().padStart(2, '0');
-                
-                timeElement.textContent = `${hours}:${minutes}:${seconds} GMT+3`;
+        function updateHUD() {
+            const now = new Date();
+            const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            const dateStr = `${months[now.getMonth()]}_${String(now.getDate()).padStart(2, '0')}_${now.getFullYear()}`;
+            const timeStr = now.toLocaleTimeString('en-GB', { hour12: false }) + "_GMT+3";
+
+            document.getElementById('live-date').innerText = dateStr;
+            document.getElementById('live-time').innerText = timeStr;
+
+            const uplink = document.getElementById('uplink');
+            if (Math.random() > 0.97) {
+                uplink.style.opacity = "0.2";
+                setTimeout(() => uplink.style.opacity = "1", 100);
             }
-            
-            // Update time every second
-            setInterval(updateTime, 1000);
-            updateTime();
-            
-            // Add some terminal-like typing effects
-            setTimeout(() => {
-                const responses = document.querySelectorAll('.terminal-response');
-                responses.forEach((response, index) => {
-                    response.style.opacity = '0';
-                    setTimeout(() => {
-                        response.style.transition = 'opacity 0.5s';
-                        response.style.opacity = '1';
-                    }, 500 + (index * 300));
-                });
-            }, 1000);
-        });
+        }
+        setInterval(updateHUD, 1000);
+        updateHUD();
     </script>
 </body>
 </html>
