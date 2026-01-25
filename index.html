@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@shaikha: ~ (ENCRYPTED_SESSION)</title>
+    <title>root@shaikhaa: ~ (ENCRYPTED_SESSION)</title>
     <style>
         :root {
-            --neon-pink: #ff2d75;
-            --dark-pink: #4a0e23;
-            --bg-black: #080205;
-            --glass: rgba(20, 5, 10, 0.85);
+            --neon-white: #ffffff;
+            --dim-white: #a0a0a0;
+            --bg-black: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-white: rgba(255, 255, 255, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-black);
-            color: white;
+            color: var(--neon-white);
             font-family: 'Segoe UI', 'Courier New', monospace;
             display: flex;
             justify-content: center;
@@ -24,24 +25,24 @@
             min-height: 100vh;
             padding: 20px;
             overflow-x: hidden;
-            /* Neural Grid Background */
+            /* Thin Grey Grid Background */
             background-image: 
-                linear-gradient(rgba(255, 45, 117, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 45, 117, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        /* Responsive Floating HUD Container */
+        /* Floating HUD Container */
         .hud-container {
             width: 100%;
             max-width: 900px;
             background: var(--glass);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--neon-pink);
-            border-radius: 20px;
+            border: 1px solid var(--border-white);
+            border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 0 60px rgba(255, 45, 117, 0.15);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
             animation: float 6s ease-in-out infinite;
         }
 
@@ -53,8 +54,8 @@
         /* Header Section */
         .header {
             display: flex;
-            flex-direction: column; /* Default for mobile */
-            border-bottom: 1px solid var(--dark-pink);
+            flex-direction: column;
+            border-bottom: 1px solid var(--border-white);
             padding-bottom: 20px;
             margin-bottom: 25px;
             gap: 15px;
@@ -66,10 +67,10 @@
         }
 
         .root-prompt {
-            font-size: 1.8rem; /* Smaller for mobile */
+            font-size: 1.8rem;
             font-weight: 900;
-            color: var(--neon-pink);
-            text-shadow: 0 0 15px var(--neon-pink);
+            color: var(--neon-white);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
             word-break: break-all;
         }
 
@@ -81,10 +82,10 @@
         /* Status Bar */
         .status-bar {
             font-family: monospace;
-            color: var(--neon-pink);
+            color: var(--dim-white);
             font-size: 0.75rem;
             line-height: 1.5;
-            text-align: left; /* Mobile default */
+            text-align: left;
         }
 
         @media (min-width: 768px) { .status-bar { text-align: right; font-size: 0.85rem; } }
@@ -92,21 +93,21 @@
         /* Content Grid */
         .grid-layout {
             display: grid;
-            grid-template-columns: 1fr; /* Single column on mobile */
+            grid-template-columns: 1fr;
             gap: 20px;
         }
 
         @media (min-width: 768px) { .grid-layout { grid-template-columns: 1fr 1.5fr; } }
 
         .module {
-            background: rgba(255, 45, 117, 0.03);
-            border: 1px solid var(--dark-pink);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-white);
             padding: 15px;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .label {
-            color: var(--neon-pink);
+            color: var(--dim-white);
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -114,19 +115,19 @@
             margin-bottom: 10px;
         }
 
-        /* Traffic Bars */
+        /* Traffic Bars (White Version) */
         .visualizer { height: 40px; display: flex; align-items: flex-end; gap: 4px; }
-        .bar { flex: 1; background: var(--neon-pink); animation: pulse 1.2s infinite ease-in-out; }
+        .bar { flex: 1; background: var(--neon-white); animation: pulse 1.2s infinite ease-in-out; opacity: 0.8; }
 
         @keyframes pulse {
-            0%, 100% { height: 30%; opacity: 0.5; }
-            50% { height: 100%; opacity: 1; }
+            0%, 100% { height: 30%; opacity: 0.3; }
+            50% { height: 100%; opacity: 0.9; }
         }
 
-        /* Skill Buttons */
+        /* Button Grid */
         .btn-group {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* 2x2 on mobile */
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 25px;
         }
@@ -135,27 +136,28 @@
 
         .pill {
             padding: 12px 5px;
-            border: 1px solid var(--neon-pink);
-            border-radius: 5px;
+            border: 1px solid var(--border-white);
+            border-radius: 4px;
             text-align: center;
             font-size: 0.65rem;
             font-weight: bold;
-            color: var(--neon-pink);
+            color: var(--neon-white);
             background: transparent;
             transition: 0.3s;
+            text-transform: uppercase;
         }
 
         .pill:active, .pill:hover {
-            background: var(--neon-pink);
+            background: var(--neon-white);
             color: black;
-            box-shadow: 0 0 15px var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
         .terminal-output {
             margin-top: 20px;
             font-family: monospace;
             font-size: 0.75rem;
-            color: #ff80ab;
+            color: var(--dim-white);
             line-height: 1.4;
         }
     </style>
@@ -167,18 +169,18 @@
             <div>
                 <p class="label">[ SYSTEM_LOGGED_IN ]</p>
                 <div class="root-prompt">
-                    shaikha:<span style="color:white">~#</span><span class="cursor">_</span>
+                    root@shaikhaa:<span style="color:var(--dim-white)">~#</span><span class="cursor">_</span>
                 </div>
-                <p style="margin-top: 8px; color: #ff80ab; font-size: 0.8rem; opacity: 0.8;">
+                <p style="margin-top: 8px; color: var(--dim-white); font-size: 0.8rem; opacity: 0.8;">
                     // QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH
                 </p>
             </div>
             
             <div class="status-bar" id="live-status">
-                <span id="live-date">JAN_24_2026</span><br>
-                <span id="live-time">17:14:15_GMT+3</span><br>
+                <span id="live-date">---</span><br>
+                <span id="live-time">---</span><br>
                 LOC: 25.2854° N (QATAR)<br>
-                UPLINK: <span id="uplink" style="font-weight:bold;">SECURE</span>
+                UPLINK: <span id="uplink" style="color:white; font-weight:bold;">SECURE</span>
             </div>
         </div>
 
@@ -197,21 +199,21 @@
             <div class="module">
                 <span class="label">Active Tasks</span>
                 <p class="terminal-output" style="color: white; opacity: 0.7; margin-top: 0;">
-                    [>] Brute-forcing Hash... <span style="color: var(--neon-pink);">72%</span><br>
-                    [>] Sniffing Local Packets... <span style="color: var(--neon-pink);">DONE</span><br>
-                    [>] DDoS Mitigation Test... <span style="color: var(--neon-pink);">RUNNING</span>
+                    [>] Brute-forcing Hash... <span style="font-weight:bold;">72%</span><br>
+                    [>] Sniffing Local Packets... <span style="font-weight:bold;">DONE</span><br>
+                    [>] DDoS Mitigation Test... <span style="font-weight:bold;">RUNNING</span>
                 </p>
             </div>
         </div>
 
         <div class="btn-group">
-            <div class="pill">TRAFFIC</div>
-            <div class="pill">DDOS TOOLS</div>
-            <div class="pill">PWD CRACK</div>
-            <div class="pill">ETHICAL HACK</div>
+            <div class="pill">Traffic</div>
+            <div class="pill">DDoS Tools</div>
+            <div class="pill">Pwd Crack</div>
+            <div class="pill">Ethical Hack</div>
         </div>
 
-        <div class="terminal-output" style="opacity: 0.5; font-size: 0.65rem; border-top: 1px solid var(--dark-pink); padding-top: 15px;">
+        <div class="terminal-output" style="opacity: 0.4; font-size: 0.65rem; border-top: 1px solid var(--border-white); padding-top: 15px;">
             shaikha@offensive-lab:~$ start --network-sweep<br>
             [SUCCESS] Connection established via encrypted tunnel.
         </div>
@@ -228,8 +230,8 @@
             document.getElementById('live-time').innerText = timeStr;
 
             const uplink = document.getElementById('uplink');
-            if (Math.random() > 0.96) {
-                uplink.style.opacity = "0.3";
+            if (Math.random() > 0.97) {
+                uplink.style.opacity = "0.2";
                 setTimeout(() => uplink.style.opacity = "1", 100);
             }
         }
