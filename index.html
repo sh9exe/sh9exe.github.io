@@ -3,221 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shaikha@offensive-lab</title>
+    <title>root@shaikhaa: ~ (ENCRYPTED_SESSION)</title>
     <style>
         :root {
-            --bg-deep: #0d050a; /* Darker than black plum */
-            --pink-glow: #ff2d95;
-            --panel-bg: rgba(20, 10, 15, 0.98);
-            --term-bg: #ffffff; /* Stark white for 100% visibility */
-            --term-text: #000000; /* Solid black ink */
+            --neon-white: #ffffff;
+            --dim-white: #a0a0a0;
+            --bg-black: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border-white: rgba(255, 255, 255, 0.2);
         }
 
-        * { box-sizing: border-box; cursor: crosshair; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-deep);
-            background-image: 
-                linear-gradient(rgba(255, 45, 149, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 45, 149, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            font-family: 'Courier New', Courier, monospace;
-            color: #fff;
-            margin: 0;
-            min-height: 100vh;
+            background-color: var(--bg-black);
+            color: var(--neon-white);
+            font-family: 'Segoe UI', 'Courier New', monospace;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-        }
-
-        /* --- MAIN DASHBOARD --- */
-        .main-panel {
-            background: var(--panel-bg);
-            border: 1px solid var(--pink-glow);
-            border-radius: 12px;
-            padding: 40px;
-            width: 100%;
-            max-width: 800px;
-            box-shadow: 0 0 40px rgba(0,0,0,1);
-            position: relative;
-        }
-
-        .header-main {
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            font-weight: 900;
-            text-shadow: 0 0 15px var(--pink-glow);
-            margin: 0;
-        }
-
-        .btn-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            background: transparent;
-            border: 1px solid var(--pink-glow);
-            color: var(--pink-glow);
-            padding: 10px 20px;
-            font-family: inherit;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            background: var(--pink-glow);
-            color: white;
-        }
-
-        /* --- SIMPLE AUDIO TOGGLE --- */
-        .audio-simple {
-            position: fixed;
-            left: 30px;
-            bottom: 30px;
-            display: flex;
             align-items: center;
-            gap: 10px;
-            color: var(--pink-glow);
-            font-size: 0.8rem;
-            z-index: 100;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            /* Thin Grey Grid Background */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .wave-bar {
-            width: 3px;
-            height: 15px;
-            background: var(--pink-glow);
-            animation: wave 1s infinite ease-in-out;
-            animation-play-state: paused;
+        /* Floating HUD Container */
+        .hud-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes wave {
-            0%, 100% { height: 5px; }
-            50% { height: 20px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
         }
 
-        /* --- THE FIXED TERMINAL --- */
-        .terminal-box {
-            position: fixed;
-            right: 30px;
-            bottom: 30px;
-            width: 350px;
-            height: 250px;
-            background: var(--term-bg);
-            border: 2px solid var(--pink-glow);
-            border-radius: 8px;
-            padding: 15px;
+        /* Header Section */
+        .header {
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 100;
+            border-bottom: 1px solid var(--border-white);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+            gap: 15px;
         }
 
-        #term-history {
-            flex-grow: 1;
-            overflow-y: auto;
-            color: var(--term-text);
+        @media (min-width: 768px) {
+            .header { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .hud-container { padding: 40px; }
+        }
+
+        .root-prompt {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon-white);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            word-break: break-all;
+        }
+
+        @media (min-width: 768px) { .root-prompt { font-size: 2.8rem; } }
+
+        .cursor { animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Status Bar */
+        .status-bar {
+            font-family: monospace;
+            color: var(--dim-white);
+            font-size: 0.75rem;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) { .status-bar { text-align: right; font-size: 0.85rem; } }
+
+        /* Content Grid */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) { .grid-layout { grid-template-columns: 1fr 1.5fr; } }
+
+        .module {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-white);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .label {
+            color: var(--dim-white);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Traffic Bars (White Version) */
+        .visualizer { height: 40px; display: flex; align-items: flex-end; gap: 4px; }
+        .bar { flex: 1; background: var(--neon-white); animation: pulse 1.2s infinite ease-in-out; opacity: 0.8; }
+
+        @keyframes pulse {
+            0%, 100% { height: 30%; opacity: 0.3; }
+            50% { height: 100%; opacity: 0.9; }
+        }
+
+        /* Button Grid */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        @media (min-width: 768px) { .btn-group { grid-template-columns: repeat(4, 1fr); } }
+
+        .pill {
+            padding: 12px 5px;
+            border: 1px solid var(--border-white);
+            border-radius: 4px;
+            text-align: center;
+            font-size: 0.65rem;
             font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .term-input-line {
-            display: flex;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-            margin-top: 5px;
-        }
-
-        .term-input-line input {
+            color: var(--neon-white);
             background: transparent;
-            border: none;
-            outline: none;
-            color: var(--term-text);
-            font-family: inherit;
-            font-weight: bold;
-            width: 100%;
+            transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        /* MOBILE FIX */
-        @media (max-width: 800px) {
-            .terminal-box, .audio-simple {
-                position: relative;
-                left: 0; right: 0; bottom: 0;
-                width: 100%;
-                margin-top: 20px;
-            }
+        .pill:active, .pill:hover {
+            background: var(--neon-white);
+            color: black;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .terminal-output {
+            margin-top: 20px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--dim-white);
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-panel">
-        <h1 class="header-main">shaikha:~#</h1>
-        <p style="color: var(--pink-glow); opacity: 0.8;">// QATARI_SEC_OPERATIVE // ONLINE</p>
-        
-        <div class="btn-row">
-            <button class="btn">TRAFFIC</button>
-            <button class="btn">DDOS TOOLS</button>
-            <button class="btn">PWD CRACK</button>
-            <button class="btn">ETHICAL HACK</button>
+    <div class="hud-container">
+        <div class="header">
+            <div>
+                <p class="label">[ SYSTEM_LOGGED_IN ]</p>
+                <div class="root-prompt">
+                    root@shaikhaa:<span style="color:var(--dim-white)">~#</span><span class="cursor">_</span>
+                </div>
+                <p style="margin-top: 8px; color: var(--dim-white); font-size: 0.8rem; opacity: 0.8;">
+                    // QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH
+                </p>
+            </div>
+            
+            <div class="status-bar" id="live-status">
+                <span id="live-date">---</span><br>
+                <span id="live-time">---</span><br>
+                LOC: 25.2854° N (QATAR)<br>
+                UPLINK: <span id="uplink" style="color:white; font-weight:bold;">SECURE</span>
+            </div>
         </div>
-    </div>
 
-    <div class="audio-simple" onclick="toggleSimpleAudio()" style="cursor: pointer;">
-        <div class="wave-bar" id="w1" style="animation-delay: 0.1s;"></div>
-        <div class="wave-bar" id="w2" style="animation-delay: 0.2s;"></div>
-        <div class="wave-bar" id="w3" style="animation-delay: 0.3s;"></div>
-        <span id="audio-txt">SOUND: OFF</span>
-        <audio id="simple-track" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio>
-    </div>
+        <div class="grid-layout">
+            <div class="module">
+                <span class="label">Traffic Monitoring</span>
+                <div class="visualizer">
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.3s"></div>
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                    <div class="bar" style="animation-delay: 0.5s"></div>
+                    <div class="bar" style="animation-delay: 0.4s"></div>
+                </div>
+            </div>
 
-    <div class="terminal-box">
-        <div style="font-size: 0.7rem; color: #999; margin-bottom: 5px;">STDOUT // SHAIKHA</div>
-        <div id="term-history">
-            <div>> System Loaded.</div>
-            <div>> Visibility: Max.</div>
-            <div>> Waiting for command...</div>
+            <div class="module">
+                <span class="label">Active Tasks</span>
+                <p class="terminal-output" style="color: white; opacity: 0.7; margin-top: 0;">
+                    [>] Brute-forcing Hash... <span style="font-weight:bold;">72%</span><br>
+                    [>] Sniffing Local Packets... <span style="font-weight:bold;">DONE</span><br>
+                    [>] DDoS Mitigation Test... <span style="font-weight:bold;">RUNNING</span>
+                </p>
+            </div>
         </div>
-        <div class="term-input-line">
-            <span style="color: var(--term-text); margin-right: 5px;">$</span>
-            <input type="text" id="term-in" autocomplete="off" placeholder="...">
+
+        <div class="btn-group">
+            <div class="pill">Traffic</div>
+            <div class="pill">DDoS Tools</div>
+            <div class="pill">Pwd Crack</div>
+            <div class="pill">Ethical Hack</div>
+        </div>
+
+        <div class="terminal-output" style="opacity: 0.4; font-size: 0.65rem; border-top: 1px solid var(--border-white); padding-top: 15px;">
+            shaikha@offensive-lab:~$ start --network-sweep<br>
+            [SUCCESS] Connection established via encrypted tunnel.
         </div>
     </div>
 
     <script>
-        // Terminal Logic
-        const tIn = document.getElementById('term-in');
-        const tHist = document.getElementById('term-history');
+        function updateHUD() {
+            const now = new Date();
+            const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            const dateStr = `${months[now.getMonth()]}_${String(now.getDate()).padStart(2, '0')}_${now.getFullYear()}`;
+            const timeStr = now.toLocaleTimeString('en-GB', { hour12: false }) + "_GMT+3";
 
-        tIn.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const line = document.createElement('div');
-                line.textContent = "> " + tIn.value;
-                tHist.appendChild(line);
-                tIn.value = '';
-                tHist.scrollTop = tHist.scrollHeight;
-            }
-        });
+            document.getElementById('live-date').innerText = dateStr;
+            document.getElementById('live-time').innerText = timeStr;
 
-        // Simple Audio Toggle
-        function toggleSimpleAudio() {
-            const a = document.getElementById('simple-track');
-            const txt = document.getElementById('audio-txt');
-            const waves = document.querySelectorAll('.wave-bar');
-
-            if (a.paused) {
-                a.play();
-                txt.innerText = "SOUND: ON";
-                waves.forEach(w => w.style.animationPlayState = 'running');
-            } else {
-                a.pause();
-                txt.innerText = "SOUND: OFF";
-                waves.forEach(w => w.style.animationPlayState = 'paused');
+            const uplink = document.getElementById('uplink');
+            if (Math.random() > 0.97) {
+                uplink.style.opacity = "0.2";
+                setTimeout(() => uplink.style.opacity = "1", 100);
             }
         }
+        setInterval(updateHUD, 1000);
+        updateHUD();
     </script>
 </body>
 </html>
