@@ -1,156 +1,302 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-  :root {
-    --bg-color: #1a0f16;
-    --card-bg: rgba(45, 27, 38, 0.8);
-    --neon-pink: #ff2d95;
-    --neon-purple: #bd00ff;
-    --text-color: #ffe0f0;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shaikhaa | Operative</title>
+    <style>
+        :root {
+            --bg-color: #12080d; /* Ultra dark plum */
+            --panel-bg: rgba(45, 20, 35, 0.85);
+            --neon-pink: #ff2d95;
+            --neon-purple: #bd00ff;
+            --dark-pink-ink: #7a003c; /* The dark text you requested */
+            --light-text: #ffe0f0;
+        }
 
-  body {
-    background-color: var(--bg-color);
-    background-image: 
-        linear-gradient(rgba(255, 45, 149, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 45, 149, 0.05) 1px, transparent 1px);
-    background-size: 30px 30px; /* Subtle pink grid */
-    font-family: 'Courier New', monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+        * {
+            box-sizing: border-box;
+            cursor: crosshair;
+        }
 
-  .main-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 45, 149, 0.4);
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 45, 149, 0.2);
-    width: 600px;
-    color: var(--text-color);
-  }
+        body {
+            background-color: var(--bg-color);
+            /* Subtle Pink Grid Background */
+            background-image: 
+                linear-gradient(rgba(255, 45, 149, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 45, 149, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--light-text);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-  .header-glow {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-purple);
-    margin-bottom: 10px;
-    animation: breathe 3s infinite ease-in-out;
-  }
+        /* Scanline overlay effect */
+        body::before {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 10;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
 
-  @keyframes breathe {
-    0%, 100% { opacity: 0.9; text-shadow: 0 0 10px var(--neon-pink); }
-    50% { opacity: 1; text-shadow: 0 0 20px var(--neon-pink), 0 0 35px var(--neon-purple); }
-  }
+        /* MAIN DASHBOARD PANEL */
+        .main-dashboard {
+            background: var(--panel-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 45, 149, 0.3);
+            border-radius: 15px;
+            padding: 50px;
+            width: 850px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 45, 149, 0.1);
+            position: relative;
+            z-index: 5;
+        }
 
-  .stats-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+        .header-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-pink), 0 0 25px var(--neon-purple);
+            animation: breathe 4s infinite ease-in-out;
+        }
 
-  .bar {
-    width: 40px;
-    background: linear-gradient(to top, var(--neon-purple), var(--neon-pink));
-    box-shadow: 0 0 10px var(--neon-pink);
-    border-radius: 4px 4px 0 0;
-    transition: height 0.5s ease;
-  }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.9; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); text-shadow: 0 0 20px var(--neon-pink), 0 0 40px var(--neon-purple); }
+        }
 
-  /* Animated "Running" Task */
-  .task-list li {
-    list-style: none;
-    margin: 10px 0;
-    padding-left: 20px;
-    position: relative;
-  }
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 224, 240, 0.5);
+            margin-top: 10px;
+            border-bottom: 1px solid rgba(255, 45, 149, 0.2);
+            padding-bottom: 15px;
+        }
 
-  .task-list li::before {
-    content: ">";
-    position: absolute;
-    left: 0;
-    color: var(--neon-pink);
-  }
+        /* LAYOUT COLUMNS */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
 
-  .status-running {
-    color: var(--neon-pink);
-    text-transform: uppercase;
-    font-weight: bold;
-    animation: flicker 1.5s infinite;
-  }
+        /* PROGRESS BARS */
+        .traffic-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 100px;
+            margin-top: 15px;
+        }
 
-  @keyframes flicker {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, var(--neon-purple), var(--neon-pink));
+            box-shadow: 0 0 15px var(--neon-pink);
+            border-radius: 3px;
+            animation: flux 2s infinite alternate ease-in-out;
+        }
 
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
+        @keyframes flux {
+            from { filter: brightness(1); height: 30%; }
+            to { filter: brightness(1.5); height: 80%; }
+        }
 
-  .btn {
-    border: 1px solid var(--neon-pink);
-    background: transparent;
-    color: var(--neon-pink);
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 0.8rem;
-  }
+        /* TASKS */
+        .task-item {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        .status-running {
+            color: var(--neon-pink);
+            font-weight: bold;
+            text-decoration: underline;
+            animation: blink 1s infinite;
+        }
 
-  .btn:hover {
-    background: var(--neon-pink);
-    color: white;
-    box-shadow: 0 0 20px var(--neon-pink);
-    transform: translateY(-2px);
-  }
-</style>
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        /* BUTTONS */
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .btn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 12px;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.3s;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: var(--neon-pink);
+            color: white;
+            box-shadow: 0 0 25px var(--neon-pink);
+            transform: translateY(-3px);
+        }
+
+        /* FLOATING INTERACTIVE TERMINAL */
+        .floating-terminal {
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            width: 350px;
+            height: 250px;
+            background: rgba(255, 45, 149, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--neon-pink);
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(255, 45, 149, 0.2);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            animation: hoverAnim 5s infinite ease-in-out;
+            z-index: 100;
+        }
+
+        @keyframes hoverAnim {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .term-header {
+            font-size: 0.7rem;
+            color: var(--neon-pink);
+            border-bottom: 1px dotted var(--neon-pink);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        #term-body {
+            flex-grow: 1;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            /* Your Name Text - Darker than Pink */
+            color: var(--dark-pink-ink); 
+            font-weight: 900;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        #user-in {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--dark-pink-ink);
+            font-family: inherit;
+            font-weight: 900;
+            width: 100%;
+        }
+
+        #term-body::-webkit-scrollbar { width: 4px; }
+        #term-body::-webkit-scrollbar-thumb { background: var(--neon-pink); }
+
+    </style>
 </head>
 <body>
 
-<div class="main-card">
-  <div class="header-glow">root@shaikhaa:~#</div>
-  <p style="color: rgba(255,224,240,0.6)">// QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH</p>
-  
-  <hr style="border: 0; border-top: 1px solid rgba(255, 45, 149, 0.2); margin: 20px 0;">
+    <div class="main-dashboard">
+        <div class="header-title">root@shaikhaa:~#</div>
+        <div class="meta-info">
+            <span>// QATARI_SEC_OPERATIVE // OFFENSIVE_RESEARCH</span>
+            <span>UPLINK: <b style="color:var(--neon-pink)">SECURE</b></span>
+        </div>
 
-  <div style="display: flex; justify-content: space-between;">
-    <div class="traffic">
-      <small>TRAFFIC MONITORING</small>
-      <div class="stats-container">
-        <div class="bar" style="height: 30px;"></div>
-        <div class="bar" style="height: 50px;"></div>
-        <div class="bar" style="height: 40px;"></div>
-        <div class="bar" style="height: 80px;"></div>
-      </div>
+        <div class="grid-layout">
+            <div>
+                <small style="letter-spacing: 2px; color: var(--neon-pink);">TRAFFIC MONITORING</small>
+                <div class="traffic-bars">
+                    <div class="bar" style="animation-delay: 0s;"></div>
+                    <div class="bar" style="animation-delay: 0.2s;"></div>
+                    <div class="bar" style="animation-delay: 0.4s;"></div>
+                    <div class="bar" style="animation-delay: 0.1s;"></div>
+                    <div class="bar" style="animation-delay: 0.5s;"></div>
+                </div>
+            </div>
+
+            <div>
+                <small style="letter-spacing: 2px; color: var(--neon-pink);">ACTIVE TASKS</small>
+                <div class="task-item">[>] Brute-forcing Hash... <span style="color: var(--neon-purple)">72%</span></div>
+                <div class="task-item">[>] Sniffing Packets... <span style="color: gray">DONE</span></div>
+                <div class="task-item">[>] DDoS Mitigation... <span class="status-running">RUNNING</span></div>
+            </div>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn">TRAFFIC</button>
+            <button class="btn">DDOS TOOLS</button>
+            <button class="btn">PWD CRACK</button>
+            <button class="btn">ETHICAL HACK</button>
+        </div>
+        
+        <p style="font-size: 0.7rem; margin-top: 30px; opacity: 0.4;">shaikha@offensive-lab:~$ start --network-sweep<br>[SUCCESS] Connection established via encrypted tunnel.</p>
     </div>
 
-    <div class="tasks">
-      <small>ACTIVE TASKS</small>
-      <ul class="task-list">
-        <li>Brute-forcing... <span style="color:var(--neon-purple)">72%</span></li>
-        <li>Sniffing Packets... <span style="color:gray">DONE</span></li>
-        <li>DDoS Mitigation... <span class="status-running">RUNNING</span></li>
-      </ul>
+    <div class="floating-terminal">
+        <div class="term-header">ENCRYPTED_SESSION: SHAIKHAA</div>
+        <div id="term-body">
+            <div>Welcome back, Shaikhaa.</div>
+            <div>Waiting for command...</div>
+        </div>
+        <div class="input-area">
+            <span style="color: var(--neon-pink)">shaikhaa:~$</span>
+            <input type="text" id="user-in" autofocus spellcheck="false">
+        </div>
     </div>
-  </div>
 
-  <div class="button-group">
-    <button class="btn">TRAFFIC</button>
-    <button class="btn">DDOS TOOLS</button>
-    <button class="btn">PWD CRACK</button>
-    <button class="btn">ETHICAL HACK</button>
-  </div>
-</div>
+    <script>
+        const input = document.getElementById('user-in');
+        const body = document.getElementById('term-body');
 
+        input.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const val = input.value;
+                const line = document.createElement('div');
+                line.style.marginTop = "5px";
+                
+                if(val.toLowerCase() === 'help') {
+                    line.textContent = "> Available: sweep, crack, bypass, clear";
+                } else if (val.toLowerCase() === 'clear') {
+                    body.innerHTML = '<div>Terminal Cleared.</div>';
+                    input.value = '';
+                    return;
+                } else {
+                    line.textContent = "> Shaikhaa executed: " + val;
+                }
+
+                body.appendChild(line);
+                input.value = '';
+                body.scrollTop = body.scrollHeight;
+            }
+        });
+
+        // Click anywhere to focus terminal
+        document.addEventListener('click', () => input.focus());
+    </script>
 </body>
 </html>
