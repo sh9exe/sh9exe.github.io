@@ -3,157 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shaikha | About</title>
+    <title>Shaikha | Root</title>
     <style>
-        /* Base Styles & Comfortable Dark Background */
+        /* Modern Dark Theme - Comfortable on eyes */
         body {
-            background-color: #121212; /* Soft black */
-            background-image: radial-gradient(#1a1a1a 1px, transparent 1px);
-            background-size: 20px 20px; /* Subtle grid pattern */
+            background-color: #0a0a0a;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #1a1a1a 0%, #0a0a0a 100%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); /* Subtle texture */
             color: #ffffff;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Inter', -apple-system, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-
-        /* Main Container */
-        .window {
-            width: 90%;
-            max-width: 850px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 0.8s ease-in-out;
             overflow: hidden;
         }
 
-        /* Top Bar */
+        /* Powerful Glassmorphism Card */
+        .window {
+            width: 380px; /* Made it smaller/compact */
+            background: rgba(25, 25, 25, 0.8);
+            backdrop-filter: blur(15px); /* Frosty glass effect */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            animation: floatCard 4s ease-in-out infinite; /* Power animation */
+            overflow: hidden;
+        }
+
+        /* Top Bar - Minimalist */
         .top-bar {
-            background: #2a2a2a;
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            border-bottom: 1px solid #333;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 18px;
+            font-size: 0.7rem;
             display: flex;
             justify-content: space-between;
+            letter-spacing: 1px;
+            color: #888;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Navigation Menu */
-        .nav {
-            background: #252525;
-            padding: 10px;
-            border-bottom: 1px solid #333;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 0.75rem;
-            text-transform: lowercase;
-        }
+        .dot-group { display: flex; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #333; }
 
-        .nav span {
-            cursor: pointer;
-            padding-bottom: 2px;
-            border-bottom: 1px solid transparent;
-        }
-
-        .nav span:hover {
-            border-bottom: 1px solid #fff;
-        }
-
-        /* Content Columns */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 1px;
-            background: #333; /* Acts as borders between columns */
-        }
-
-        .col {
-            background: #1e1e1e;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* Content Area */
+        .content {
+            padding: 30px 25px;
             text-align: center;
         }
 
-        /* Profile Elements */
-        .avatar-box {
+        /* Image/PNG Slot */
+        .avatar-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .avatar-png {
             width: 100%;
-            aspect-ratio: 1/1;
-            background: #252525;
-            margin-bottom: 15px;
-            border: 1px solid #444;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-            transition: 0.3s;
+            height: 100%;
+            object-fit: contain;
+            /* Replace the URL below with your actual PNG link */
+            content: url('https://files.catbox.moe/5f6v4r.png'); 
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            animation: pulse 2s infinite alternate;
         }
 
-        .avatar-box:hover {
-            background: #333;
-            transform: scale(0.98);
-        }
-
-        h2 {
-            font-size: 1.1rem;
+        h1 {
+            font-size: 1.5rem;
             margin: 10px 0;
-            text-transform: lowercase;
+            letter-spacing: 3px;
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
-        p {
+        .bio {
             font-size: 0.85rem;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #bbb;
+            margin-bottom: 25px;
         }
 
-        /* Social Buttons */
+        /* Interactive Powerful Buttons */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .btn {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            background: #2a2a2a;
-            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
+            padding: 12px;
+            border-radius: 10px;
             text-decoration: none;
             font-size: 0.8rem;
-            text-transform: lowercase;
-            transition: 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .btn:hover {
-            background: #fff;
+            background: #ffffff;
             color: #000;
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        /* Footer Bar */
-        .footer {
-            background: #252525;
-            padding: 8px;
-            font-size: 0.65rem;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #333;
-        }
+        .btn span { opacity: 0.5; font-size: 0.7rem; }
 
         /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cute Creature Animation */
-        .creature {
-            display: inline-block;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
+        @keyframes floatCard {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.05); opacity: 1; }
+        }
+
+        .footer {
+            padding: 15px;
+            font-size: 0.6rem;
+            color: #444;
+            text-align: center;
+            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -161,46 +141,41 @@
 
     <div class="window">
         <div class="top-bar">
-            <span>♡ shaikha_os ♡</span>
-            <span>_ □ ×</span>
+            <div class="dot-group">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <span>SHAIKHA.SYS</span>
         </div>
 
-        <div class="nav">
-            <span>home</span>
-            <span>about_me</span>
-            <span>kali_tools</span>
-            <span>gallery</span>
-            <span>credits</span>
-        </div>
-
-        <div class="content-grid">
-            
-            <div class="col">
-                <div class="avatar-box">👾</div>
-                <h2>la shaikha el</h2>
-                <p>hihi, welcome to my space. i'm a tech explorer from qatar 🇶🇦. still learning the ropes of linux and coding but trying my best every day!</p>
-                <p style="font-size: 0.7rem; color: #666; margin-top: 15px;">shaikha@dev.lab</p>
+        <div class="content">
+            <div class="avatar-container">
+                <div class="avatar-png"></div>
             </div>
 
-            <div class="col">
-                <div class="avatar-box" style="aspect-ratio: 1.5/1; font-size: 2rem;">🐾</div>
-                <h2 class="creature">૮ ๑ˊ ꒳ ˋ๑ ა</h2>
-                <a href="https://instagram.com/pv13" class="btn">instagram</a>
-                <a href="#" class="btn">discord: 5wr</a>
-                <a href="#" class="btn">my projects</a>
-            </div>
+            <h1>SHAIKHA</h1>
+            <p class="bio">
+                Qatar 🇶🇦 | Newbie Programmer<br>
+                Exploring the depths of <strong>Linux Kali</strong>.<br>
+                Learning to build, break, and protect.
+            </p>
 
-            <div class="col">
-                <div class="avatar-box">💻</div>
-                <h2>current_status</h2>
-                <p>learning: kali linux<br>coding: html/css<br>vibe: coding at night</p>
-                <p class="creature" style="margin-top: 20px;">♡</p>
+            <div class="social-links">
+                <a href="https://instagram.com/pv13" class="btn" target="_blank">
+                    INSTAGRAM <span>/pv13</span>
+                </a>
+                <div class="btn">
+                    DISCORD <span>/5wr</span>
+                </div>
+                <div class="btn">
+                    PORTFOLIO <span>/root</span>
+                </div>
             </div>
-
         </div>
 
         <div class="footer">
-            built by shaikha | 2026 | root access granted
+            EST. 2026 // QATAR LABS
         </div>
     </div>
 
