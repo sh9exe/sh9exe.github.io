@@ -1,85 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAMPIEST</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>~ username blog !</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      background: #0a0005 url('https://drive.google.com/uc?export=view&id=PUT_BACKGROUND_GIF_ID_HERE') no-repeat center/cover fixed; /* optional bg GIF */
-      color: #ddd;
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(180,0,0,0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(120,0,0,0.06) 0%, transparent 50%);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* floating particles / scattered dots */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      background: #c00;
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 25s infinite linear;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0.2); opacity: 0; }
+      10%  { opacity: 0.7; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-20vh) scale(0.8); opacity: 0; }
+    }
+
+    header {
+      background: linear-gradient(to bottom, #300000, #100000);
+      border-bottom: 3px solid #800000;
+      padding: 20px;
       text-align: center;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.9);
     }
-    h1 { color: #ff1493; font-size: 3.5rem; margin: 20px 0; text-shadow: 0 0 20px #c71585; }
-    h2 { color: #c71585; margin: 50px 0 20px; border-bottom: 2px dashed #600; padding-bottom: 10px; }
-    .profile {
-      width: 200px; height: 200px; border-radius: 50%; border: 6px solid #8b0000;
-      margin: 20px auto; box-shadow: 0 0 30px #ff1493;
-      object-fit: cover;
+
+    header h1 {
+      color: #ff0000;
+      font-size: 2.8rem;
+      text-shadow: 0 0 15px #ff0000, 0 0 30px #800000;
+      letter-spacing: 4px;
     }
-    .divider { width: 80%; margin: 40px auto; opacity: 0.9; }
-    .decor { position: absolute; width: 60px; animation: float 8s infinite ease-in-out; }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
-    a { color: #ff69b4; }
+
+    .links {
+      margin: 15px 0;
+      font-size: 1.3rem;
+    }
+
+    .links a {
+      color: #ff4444;
+      margin: 0 18px;
+      text-decoration: none;
+      text-shadow: 0 0 10px #ff0000;
+      transition: all 0.3s;
+    }
+
+    .links a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 20px #ff4444;
+      transform: scale(1.15);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .section {
+      background: rgba(20,20,20,0.75);
+      border: 1px solid #400000;
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 30px rgba(100,0,0,0.3);
+    }
+
+    .section h2 {
+      color: #ff3333;
+      border-bottom: 2px dashed #800000;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 12px #ff0000;
+    }
+
+    .info-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .info-box {
+      flex: 1;
+      min-width: 280px;
+      background: rgba(30,0,0,0.5);
+      padding: 20px;
+      border: 1px solid #600000;
+      border-radius: 6px;
+    }
+
+    .skull-center {
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    .skull {
+      max-width: 320px;
+      filter: drop-shadow(0 0 30px #ff0000) drop-shadow(0 0 60px #800000);
+      animation: pulse 4s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+
+    .warning {
+      background: #200000;
+      border: 3px solid #ff0000;
+      color: #ff4444;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin: 30px 0;
+      box-shadow: 0 0 40px rgba(255,0,0,0.4);
+      animation: flash 3s infinite;
+    }
+
+    @keyframes flash {
+      0%,100% { opacity: 1; }
+      50%     { opacity: 0.7; }
+    }
+
+    .characters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .char {
+      background: #100000;
+      border: 1px dashed #800000;
+      padding: 15px;
+      min-width: 180px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .spider-web {
+      position: absolute;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .web1 { top: 10%; left: 5%; width: 400px; transform: rotate(-15deg); }
+    .web2 { bottom: 5%; right: 8%; width: 480px; transform: rotate(20deg); }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+      font-size: 0.9rem;
+      border-top: 1px solid #400000;
+      margin-top: 60px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Profile GIF (usually image01.gif or Tumblr one) -->
-  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="profile" class="profile">
+  <!-- floating red particles -->
+  <div class="particles" id="particles"></div>
 
-  <h1>VAMPIEST</h1>
-  <p>*Some quote you like here* ~</p>
+  <!-- spider webs decoration -->
+  <img src="https://www.pngall.com/wp-content/uploads/2016/06/Spider-Web-PNG-Picture.png" class="spider-web web1" alt="spider web">
+  <img src="https://www.pngall.com/wp-content/uploads/2016/06/Spider-Web-PNG-Picture.png" class="spider-web web2" alt="spider web">
 
-  <!-- Social links -->
-  <ul style="list-style:none; padding:0; margin:30px 0;">
-    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
-    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
-    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
-    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
-  </ul>
+  <header>
+    <h1>Some quote you like here ~</h1>
+    <div class="links">
+      <a href="#">link</a> • <a href="#">link</a> • <a href="#">link</a> • <a href="#">link</a>
+    </div>
+    <p>username blog !</p>
+  </header>
 
-  <h1>username blog *!*</h1>
-  <p>𝜗 n ame ♱</p>
-  <p>prns/prns ✟ zodiac</p>
-  <p>mbti & extra</p>
-  <p>* [before u fllw](#)</p>
+  <div class="container">
 
-  <p>text text text text text text text text text text text text text text text text text text text text text text text text</p>
+    <div class="section">
+      <h2>★ name + zodiac / pms / pins / mbti / extras ★</h2>
+      <div class="info-grid">
+        <div class="info-box">
+          <strong>Name:</strong> shaikha<br>
+          <strong>Zodiac:</strong> [your zodiac]<br>
+          <strong>MBTI:</strong> [your mbti]<br>
+          <strong>Pronouns:</strong> she/her
+        </div>
+        <div class="info-box">
+          <strong>Pins:</strong> [list pins]<br>
+          <strong>Extra:</strong> [anything]
+        </div>
+      </div>
+    </div>
 
-  <!-- Divider GIF example -->
-  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="divider" class="divider">
+    <div class="skull-center">
+      <img src="https://pngimg.com/uploads/skull/skull_PNG1.png" class="skull" alt="glowing skull">
+    </div>
 
-  <h2>MUSIC</h2>
-  <p>text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
+    <div class="section">
+      <h2>before u follow / dni</h2>
+      <p>text text text text text text text text text text text text text text text text text text text text text text text text</p>
+      <p>text text text text text text text text text text text text text text text text text text text text text text</p>
+    </div>
 
-  <p>likes :P text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
-  <p>dislikes >:( text text text text text text text text text text text text text text text text</p>
+    <div class="section">
+      <h2>fav MEDIA</h2>
+      <p>text text text text text text text text text text text text text text text text text text text text</p>
+      <p>★ book ★ movie ★ song ★ anime ★ game ★ etc</p>
+    </div>
 
-  <p>≧﹏≦ ˙˚ʚ(´◡`)ɞ˚˙</p>
+    <div class="warning">do not interact</div>
 
-  <!-- Another decorative GIF -->
-  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="sparkle" style="width:80px; margin:20px;">
+    <div class="section">
+      <h2>characters</h2>
+      <div class="characters">
+        <div class="char">character 1<br>text text text</div>
+        <div class="char">character 2<br>text text text text</div>
+        <div class="char">character 3<br>text text</div>
+        <div class="char">character 4<br>text text text text text</div>
+      </div>
+    </div>
 
-  <p>note text text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
+  </div>
 
-  <h2>*fav* MEDIA</h2>
-  <p>text text text text text text text text text text text text text text text text</p>
+  <footer>
+    ~ made with red energy &lt;3 ~  do not steal ~
+  </footer>
 
-  <h2>chara *cters*</h2>
-  <p>text text text text text text text text text text text text text text text text text</p>
-
-  <p>* [do not interact](#)</p>
-
-  <p>text text text text text text text text text text text text text text text text text text text text text text text text</p>
-
-  <!-- Footer divider -->
-  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="footer" class="divider">
+  <script>
+    // simple floating particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 60; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 5 + 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDelay = Math.random() * 20 + 's';
+      p.style.animationDuration = (Math.random() * 20 + 15) + 's';
+      particlesContainer.appendChild(p);
+    }
+  </script>
 
 </body>
 </html>
