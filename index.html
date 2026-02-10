@@ -1,316 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>pompompurin.exe</title>
-  <link rel="icon" href="https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png" type="image/png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VAMPIEST</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Patrick+Hand&display=swap');
-
-    :root {
-      --bg: #fff0f5;
-      --pink: #ffb6c1;
-      --hotpink: #ff80ab;
-      --deeppink: #ff4081;
-      --cream: #fffde7;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
-      min-height: 100vh;
-      font-family: 'Comic Neue', cursive;
-      color: #555;
-      overflow-x: hidden;
-      cursor: url('https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png'), auto;
-    }
-
-    .container {
-      max-width: 980px;
-      margin: 24px auto;
-      background: white;
-      border: 5px solid var(--pink);
-      border-radius: 14px;
-      box-shadow: 0 12px 50px rgba(255,105,180,0.3);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .title-bar {
-      background: linear-gradient(to right, #ff9aa2, #ffd1dc);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 4px solid var(--hotpink);
-    }
-
-    .title-bar img { width: 36px; height: 36px; object-fit: contain; }
-    .title-bar h1 {
-      font-family: 'Patrick Hand', cursive;
-      color: white;
-      text-shadow: 2px 2px 0 var(--deeppink);
-      font-size: 1.8rem;
-      margin: 0;
-    }
-
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 24px;
-      gap: 28px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="%23ffb6c1" opacity="0.2"/><circle cx="50" cy="50" r="2" fill="%23ff80ab" opacity="0.15"/><circle cx="90" cy="90" r="2" fill="%23ff4081" opacity="0.2"/></svg>') repeat;
-    }
-
-    .sidebar {
-      flex: 1 1 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .main {
-      flex: 3 1 400px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .card {
-      background: #fffaf5;
-      border: 3px dashed var(--hotpink);
-      border-radius: 14px;
-      padding: 18px;
-      box-shadow: 5px 5px 0 #ffe4e1;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "♡ ♡ ♡";
-      position: absolute;
-      font-size: 80px;
-      color: #fff0f5;
-      opacity: 0.18;
-      top: -20px; right: -30px;
-      transform: rotate(12deg);
-      pointer-events: none;
-    }
-
-    h2 {
-      color: var(--deeppink);
-      font-size: 1.7rem;
-      margin-bottom: 12px;
-      border-bottom: 2px dotted var(--pink);
-      padding-bottom: 6px;
-      text-shadow: 1px 1px 0 #fff;
-    }
-
-    ul.heart-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    ul.heart-list li {
-      margin: 8px 0;
-      padding-left: 28px;
-      position: relative;
-      font-size: 1.1rem;
-    }
-
-    ul.heart-list li::before {
-      content: "♥";
-      color: var(--deeppink);
-      position: absolute;
-      left: 4px;
-      font-size: 1.3rem;
-    }
-
-    .photo-frame {
+      background: #0a0005 url('https://drive.google.com/uc?export=view&id=PUT_BACKGROUND_GIF_ID_HERE') no-repeat center/cover fixed; /* optional bg GIF */
+      color: #ddd;
+      font-family: system-ui, sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
       text-align: center;
     }
-
-    .photo-frame img {
-      width: 100%;
-      max-width: 220px;
-      border: 10px solid white;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(255,105,180,0.4);
-      transform: rotate(-3deg);
-      transition: all 0.4s ease;
+    h1 { color: #ff1493; font-size: 3.5rem; margin: 20px 0; text-shadow: 0 0 20px #c71585; }
+    h2 { color: #c71585; margin: 50px 0 20px; border-bottom: 2px dashed #600; padding-bottom: 10px; }
+    .profile {
+      width: 200px; height: 200px; border-radius: 50%; border: 6px solid #8b0000;
+      margin: 20px auto; box-shadow: 0 0 30px #ff1493;
+      object-fit: cover;
     }
-
-    .photo-frame img:hover {
-      transform: rotate(2deg) scale(1.1);
-    }
-
-    .music-player {
-      background: #fff0f5;
-      border: 3px solid var(--hotpink);
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-    }
-
-    .progress {
-      margin: 10px 0;
-      color: var(--deeppink);
-      font-weight: bold;
-    }
-
-    .controls {
-      font-size: 1.8rem;
-      color: var(--deeppink);
-      margin-top: 8px;
-    }
-
-    /* floating purins */
-    .float-purin {
-      position: absolute;
-      width: 90px;
-      pointer-events: none;
-      opacity: 0.75;
-      animation: float 22s infinite ease-in-out;
-      will-change: transform;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50%      { transform: translateY(-60px) rotate(10deg); }
-    }
-
-    .purin1 { top: 12%; left: 6%;  animation-delay: 0s;    }
-    .purin2 { bottom: 18%; right: 8%; animation-delay: 5s;  }
-    .purin3 { top: 45%; right: 12%; animation-delay: 11s;  }
-    .purin4 { bottom: 30%; left: 15%; animation-delay: 17s; }
-
-    /* pulsing hearts */
-    @keyframes pulse {
-      0%,100% { transform: scale(1); opacity: 0.6; }
-      50%     { transform: scale(1.4); opacity: 1; }
-    }
-
-    .heart-bg {
-      position: absolute;
-      font-size: 60px;
-      color: #ff408140;
-      pointer-events: none;
-      animation: pulse 6s infinite ease-in-out;
-    }
-
-    .heart1 { top: 20%; left: 20%; animation-delay: 0s; }
-    .heart2 { bottom: 25%; right: 25%; animation-delay: 2s; }
+    .divider { width: 80%; margin: 40px auto; opacity: 0.9; }
+    .decor { position: absolute; width: 60px; animation: float 8s infinite ease-in-out; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+    a { color: #ff69b4; }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="title-bar">
-    <img src="https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png" alt="purin icon">
-    <h1>pompompurin.exe</h1>
-  </div>
+  <!-- Profile GIF (usually image01.gif or Tumblr one) -->
+  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="profile" class="profile">
 
-  <div class="content">
+  <h1>VAMPIEST</h1>
+  <p>*Some quote you like here* ~</p>
 
-    <!-- SIDEBAR -->
-    <div class="sidebar">
+  <!-- Social links -->
+  <ul style="list-style:none; padding:0; margin:30px 0;">
+    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
+    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
+    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
+    <li style="display:inline; margin:0 20px; font-size:1.4rem;"><a href="#">[link]</a></li>
+  </ul>
 
-      <div class="photo-frame">
-        <img src="https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png" alt="Purin heart pose">
-      </div>
+  <h1>username blog *!*</h1>
+  <p>𝜗 n ame ♱</p>
+  <p>prns/prns ✟ zodiac</p>
+  <p>mbti & extra</p>
+  <p>* [before u fllw](#)</p>
 
-      <div class="card">
-        <h2>Hi there .'</h2>
-        <ul class="heart-list">
-          <li>she / her</li>
-          <li>korean - sz</li>
-          <li>STAY ♡</li>
-          <li>INFP-T</li>
-          <li>libra</li>
-        </ul>
-      </div>
+  <p>text text text text text text text text text text text text text text text text text text text text text text text text</p>
 
-      <div class="card">
-        <h2>DETAILS .'</h2>
-        <ul class="heart-list">
-          <li>age → ???</li>
-          <li>pronouns → she/her</li>
-          <li>zodiac → libra</li>
-          <li>mbti → INFP-T</li>
-        </ul>
-      </div>
+  <!-- Divider GIF example -->
+  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="divider" class="divider">
 
-      <div class="card music-player">
-        <h2>MUSIC .'</h2>
-        <div class="progress">1:23 ───○───── 3:05</div>
-        <div>사랑에 빠진 것 같아요</div>
-        <div class="controls">◀◀　▶　▶▶</div>
-      </div>
+  <h2>MUSIC</h2>
+  <p>text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
 
-    </div>
+  <p>likes :P text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
+  <p>dislikes >:( text text text text text text text text text text text text text text text text</p>
 
-    <!-- MAIN -->
-    <div class="main">
+  <p>≧﹏≦ ˙˚ʚ(´◡`)ɞ˚˙</p>
 
-      <div class="card">
-        <h2>ABOUT ME .'</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <p style="margin-top:12px;">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-      </div>
+  <!-- Another decorative GIF -->
+  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="sparkle" style="width:80px; margin:20px;">
 
-      <div class="card">
-        <h2>RULES .'</h2>
-        <ul class="heart-list">
-          <li>no hate / negativity !!</li>
-          <li>be nice to each other ♡</li>
-          <li>respect boundaries</li>
-          <li>no spam or chain letters</li>
-          <li>have fun always !!</li>
-        </ul>
-      </div>
+  <p>note text text text text text text text text text text text text text text text text text text text text text text text text text text text text</p>
 
-      <div class="card" style="text-align:center; padding:32px 16px;">
-        <img src="https://i.pinimg.com/originals/fe/c0/b0/fec0b08394bf7ab2746a7945eb3e087b.png" alt="cute purin" style="max-width:340px; border-radius:24px; box-shadow:0 12px 40px rgba(255,105,180,0.35);">
-        <p style="margin-top:20px; font-size:1.4rem; color:var(--deeppink);">
-          thank u for visiting ~ ! ♡₊˚✧
-        </p>
-      </div>
+  <h2>*fav* MEDIA</h2>
+  <p>text text text text text text text text text text text text text text text text</p>
 
-    </div>
+  <h2>chara *cters*</h2>
+  <p>text text text text text text text text text text text text text text text text text</p>
 
-  </div>
-</div>
+  <p>* [do not interact](#)</p>
 
-<!-- floating purins -->
-<img class="float-purin purin1" src="https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png">
-<img class="float-purin purin2" src="https://e7.pngegg.com/pngimages/749/272/png-clipart-sticker-purin-sanrio-line-rilakkuma-pom-pom-purin-text-smiley.png">
-<img class="float-purin purin3" src="https://www.clipartmax.com/png/middle/276-2762331_splatoon-nintendo-sanrio-hello-kitty-pompompurin-my-%E3%83%9E%E3%82%A4-%E3%83%A1%E3%83%AD%E3%83%87%E3%82%A3-%E3%82%B9%E3%83%97%E3%83%A9-%E3%83%88%E3%82%A5%E3%83%BC%E3%83%B3.png">
-<img class="float-purin purin4" src="https://www.pngkey.com/png/detail/396-3969309_pompompurin-sanrio-valentinesday-whitevalentinesday-cartoon.png">
+  <p>text text text text text text text text text text text text text text text text text text text text text text text text</p>
 
-<!-- background hearts -->
-<div class="heart-bg heart1">♡</div>
-<div class="heart-bg heart2">♡</div>
+  <!-- Footer divider -->
+  <img src="YOUR_DIRECT_GIF_LINK_HERE" alt="footer" class="divider">
 
-<script>
-// gentle cursor follower (small purin shadow)
-const trail = document.createElement('div');
-trail.style.cssText = `
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 40px; height: 40px; opacity: 0.4; transform: translate(-50%, -50%);
-  background: url('https://www.kindpng.com/picc/m/94-945747_pompompurin-sanrio-png-transparent-png.png') center/contain no-repeat;
-  transition: all 0.18s ease-out;
-`;
-document.body.appendChild(trail);
-
-let timeout;
-document.addEventListener('mousemove', e => {
-  trail.style.left = e.clientX + 'px';
-  trail.style.top  = e.clientY + 'px';
-  trail.style.opacity = 0.5;
-  clearTimeout(timeout);
-  timeout = setTimeout(() => trail.style.opacity = 0.1, 1200);
-});
-</script>
 </body>
 </html>
